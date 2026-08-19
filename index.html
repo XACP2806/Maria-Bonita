@@ -15,19 +15,18 @@
 
   <style>
     /* ===================================================
-       1. VARIABLES Y ESTILOS BASE (PALETA DE COLORES)
+       1. VARIABLES Y ESTILOS BASE
        =================================================== */
     :root {
-      --primary-pink: #C38B94;      /* Rosa viejo / dusty rose del sitio original */
-      --secondary-pink: #DDA3AB;    /* Rosa suave de acento */
-      --light-pink: #F8ECEE;        /* Fondo claro rosado */
-      --bg-cream: #FAF8F5;          /* Fondo crema elegante */
-      --dark-text: #1C1C1C;         /* Texto oscuro principal */
-      --muted-text: #555555;        /* Texto secundario */
+      --primary-pink: #C38B94;
+      --secondary-pink: #DDA3AB;
+      --light-pink: #F8ECEE;
+      --bg-cream: #FAF8F5;
+      --dark-text: #1C1C1C;
+      --muted-text: #555555;
       --white: #FFFFFF;
       --border-color: #E8D8DA;
       
-      /* Tipografías solicitadas */
       --font-body: 'Sorts Mill Goudy', serif;
       --font-titles: 'Caveat', cursive;
       --font-nav: 'Sorts Mill Goudy', serif;
@@ -96,17 +95,27 @@
       padding: 15px 20px;
     }
 
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-img {
+      width: 45px;
+      height: 45px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+    }
+
     .logo {
       font-family: var(--font-nav);
       font-size: 2.2rem;
       font-weight: 700;
       letter-spacing: 2px;
-      color: var(--dark-text);
+      color: #000000;
       text-transform: uppercase;
-    }
-
-    .logo span {
-      color: var(--primary-pink);
     }
 
     nav ul {
@@ -148,32 +157,23 @@
     }
 
     /* ===================================================
-       4. HERO BANNER DE BIENVENIDA
+       4. HERO BANNER DE IMAGEN (EFECTO SCROLL)
        =================================================== */
-    .hero {
-      background: linear-gradient(rgba(28,28,28,0.25), rgba(28,28,28,0.25)), url('https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
-      height: 380px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      color: var(--white);
+    .hero-container {
+      width: 100%;
+      height: 450px;
+      overflow: hidden;
       margin-bottom: 40px;
-      padding: 0 20px;
+      background-color: #000;
+      position: relative;
     }
 
-    .hero-content h1 {
-      font-family: var(--font-titles);
-      font-size: 4.5rem;
-      font-weight: 700;
-      margin-bottom: 10px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    }
-
-    .hero-content p {
-      font-size: 1.3rem;
-      letter-spacing: 1.5px;
-      text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: clip-path 0.1s linear;
+      clip-path: inset(0% 0% 0% 0%);
     }
 
     /* ===================================================
@@ -217,6 +217,7 @@
       display: flex;
       flex-direction: column;
       position: relative;
+      cursor: pointer;
     }
 
     .product-card:hover {
@@ -308,9 +309,6 @@
       background-color: var(--primary-pink);
     }
 
-    /* ===================================================
-       7. BOTONES SECUNDARIOS / NAVEGACIÓN
-       =================================================== */
     .center-btn-wrap {
       text-align: center;
       margin: 30px 0 60px 0;
@@ -336,60 +334,149 @@
     }
 
     /* ===================================================
-       8. SECCIÓN "NUESTRA HISTORIA" (COMO EMPEZÓ TODO)
+       7. MODAL DE PREVISTA DE PRODUCTO
        =================================================== */
-    .history-section {
-      background-color: var(--white);
-      padding: 60px 0;
-      margin: 50px 0;
-      border-top: 1px solid var(--border-color);
-      border-bottom: 1px solid var(--border-color);
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow-y: auto;
     }
 
-    .history-grid {
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      background-color: var(--white);
+      width: 100%;
+      max-width: 900px;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 2rem;
+      color: var(--dark-text);
+      cursor: pointer;
+      z-index: 10;
+      background: rgba(255,255,255,0.8);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-body {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 50px;
-      align-items: center;
+      overflow-y: auto;
+      padding: 30px;
+      gap: 30px;
     }
 
-    .history-image {
+    .modal-gallery {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .main-img-wrap {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      background-color: #f2f2f2;
       border-radius: 8px;
       overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
     }
 
-    .history-image img {
+    .main-img-wrap img {
       width: 100%;
-      height: 450px;
+      height: 100%;
       object-fit: cover;
     }
 
-    .history-content h2 {
-      font-family: var(--font-titles);
-      font-size: 3.5rem;
-      color: var(--primary-pink);
-      margin-bottom: 20px;
-      line-height: 1;
-    }
-
-    .history-content p {
-      margin-bottom: 18px;
-      color: var(--muted-text);
+    .nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.8);
+      border: none;
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      cursor: pointer;
       font-size: 1.1rem;
-      text-align: justify;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.3s;
     }
 
-    .history-highlight {
-      font-style: italic;
-      border-left: 3px solid var(--primary-pink);
-      padding-left: 15px;
-      margin: 20px 0;
-      color: var(--dark-text);
+    .nav-arrow:hover {
+      background: var(--primary-pink);
+      color: var(--white);
+    }
+
+    .nav-arrow.prev { left: 10px; }
+    .nav-arrow.next { right: 10px; }
+
+    .color-swatches {
+      display: flex;
+      gap: 10px;
+      margin: 15px 0;
+    }
+
+    .swatch {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid #ccc;
+      cursor: pointer;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .swatch.active, .swatch:hover {
+      transform: scale(1.15);
+      border-color: var(--primary-pink);
+    }
+
+    .reel-box {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: var(--light-pink);
+      border-radius: 8px;
+    }
+
+    .reel-box h4 {
+      font-size: 1rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--primary-pink);
     }
 
     /* ===================================================
-       9. SECCIÓN QUIÉNES SOMOS (PÁGINA DEDICADA)
+       8. SECCIÓN QUIÉNES SOMOS (4 SECCIONES ALTERNADAS)
        =================================================== */
     .about-page-header {
       background-color: var(--light-pink);
@@ -399,35 +486,50 @@
       border-radius: 8px;
     }
 
-    .values-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-      margin: 40px 0;
+    .alternating-section {
+      display: flex;
+      gap: 50px;
+      align-items: center;
+      margin-bottom: 60px;
     }
 
-    .value-card {
-      background: var(--white);
-      padding: 30px;
-      border-radius: 8px;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-      border-top: 4px solid var(--primary-pink);
+    .alternating-section.reverse {
+      flex-direction: row-reverse;
     }
 
-    .value-card i {
-      font-size: 2.5rem;
+    .alternating-text {
+      flex: 1;
+    }
+
+    .alternating-text h2 {
+      font-family: var(--font-titles);
+      font-size: 3.2rem;
       color: var(--primary-pink);
       margin-bottom: 15px;
+      line-height: 1;
     }
 
-    .value-card h3 {
-      font-size: 1.3rem;
-      margin-bottom: 10px;
+    .alternating-text p {
+      color: var(--muted-text);
+      font-size: 1.1rem;
+      line-height: 1.7;
+    }
+
+    .alternating-image {
+      flex: 1;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+
+    .alternating-image img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
     }
 
     /* ===================================================
-       10. PIE DE PÁGINA (FOOTER)
+       9. PIE DE PÁGINA (FOOTER)
        =================================================== */
     footer {
       background-color: var(--dark-text);
@@ -438,7 +540,7 @@
 
     .footer-grid {
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      grid-template-columns: 2fr 1fr 1.5fr;
       gap: 40px;
       margin-bottom: 40px;
     }
@@ -449,10 +551,6 @@
       color: var(--white);
       margin-bottom: 15px;
       text-transform: uppercase;
-    }
-
-    .footer-logo span {
-      color: var(--secondary-pink);
     }
 
     .footer-about p {
@@ -535,12 +633,12 @@
       text-align: center;
       padding-top: 25px;
       border-top: 1px solid rgba(255,255,255,0.1);
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       color: #888888;
     }
 
     /* ===================================================
-       11. SECCIONES VISTAS (SPA - SINGLE PAGE SHOW/HIDE)
+       10. SECCIONES VISTAS (SPA) Y RESPONSIVE
        =================================================== */
     .page-section {
       display: none;
@@ -556,7 +654,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Filtro adicional en Ver Todo */
     .filter-bar {
       display: flex;
       justify-content: center;
@@ -582,12 +679,14 @@
       border-color: var(--primary-pink);
     }
 
-    /* Responsive */
     @media (max-width: 900px) {
       .footer-grid {
         grid-template-columns: 1fr 1fr;
       }
-      .history-grid {
+      .alternating-section, .alternating-section.reverse {
+        flex-direction: column;
+      }
+      .modal-body {
         grid-template-columns: 1fr;
       }
     }
@@ -618,10 +717,6 @@
         display: block;
       }
 
-      .hero-content h1 {
-        font-size: 3.2rem;
-      }
-
       .footer-grid {
         grid-template-columns: 1fr;
       }
@@ -635,12 +730,16 @@
     <p><i class="fa-solid fa-truck-fast"></i> Envíos a todo el Ecuador | María Bonita Boutique</p>
   </div>
 
-  <!-- HEADER -->
+  <!-- HEADER CON LOGO Y NAVEGACIÓN -->
   <header>
     <div class="container header-container">
-      <a href="#" onclick="showSection('inicio'); return false;" class="logo">
-        María <span>Bonita</span>
-      </a>
+      <div class="logo-container">
+        <!-- Reemplaza "imagenes/logo.jpg" con la ruta de tu logo local -->
+        <img src="imagenes/logo.jpg" alt="Logo María Bonita" class="logo-img" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80';">
+        <a href="#" onclick="showSection('inicio'); return false;" class="logo">
+          MARÍA BONITA
+        </a>
+      </div>
 
       <button class="mobile-menu-btn" onclick="toggleMenu()">
         <i class="fa-solid fa-bars"></i>
@@ -663,24 +762,21 @@
        =================================================== -->
   <section id="inicio" class="page-section active">
     
-    <!-- BANNER HERO -->
-    <div class="hero">
-      <div class="hero-content">
-        <h1>María Bonita</h1>
-        <p>Elegancia, frescura y versatilidad para tu día a día</p>
-      </div>
+    <!-- BANNER HERO SOLO IMAGEN CON EFECTO DE CIERRE EN SCROLL -->
+    <div class="hero-container">
+      <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1600&q=80" alt="Banner Principal" id="hero-banner" class="hero-img">
     </div>
 
     <div class="container">
       
-      <!-- SECCIÓN NEW ARRIVALS (6 VESTIDOS SOLAMENTE) -->
+      <!-- SECCIÓN NEW ARRIVALS -->
       <div class="section-header">
         <h2 class="section-title">New Arrivals</h2>
         <p class="section-subtitle">Descubre nuestras prendas más recientes seleccionadas especialmente para ti</p>
       </div>
 
       <div class="products-grid" id="new-arrivals-grid">
-        <!-- Generado dinámicamente con JS (6 prendas) -->
+        <!-- Carga dinámica -->
       </div>
 
       <!-- BOTÓN VER TODO -->
@@ -690,53 +786,27 @@
         </button>
       </div>
 
-      <!-- MINI SECCIÓN "NUESTRA HISTORIA / CÓMO EMPEZÓ TODO" -->
-      <div class="history-section">
-        <div class="container">
-          <div class="history-grid">
-            <div class="history-image">
-              <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=800&q=80" alt="Nuestra Historia Maria Bonita">
-            </div>
-            <div class="history-content">
-              <h2>Cómo empezó todo</h2>
-              <p>
-                María Bonita nació del sueño de resaltar la autenticidad y elegancia de cada mujer. Lo que comenzó como un pequeño taller familiar con una colección cápsula, hoy se ha convertido en un referente de moda femenina en Ecuador.
-              </p>
-              <p>
-                Creemos firmemente en el poder de un buen vestido para transformar la confianza de una mujer. Diseñamos y seleccionamos cada una de nuestras telas pensando en el clima, la comodidad y las tendencias atemporales.
-              </p>
-              <div class="history-highlight">
-                "Nuestra misión es hacerte sentir única, hermosa y cómoda en cada momento especial de tu vida."
-              </div>
-              <button onclick="showSection('quienes-somos')" class="btn-buy" style="background-color: var(--primary-pink);">
-                Conoce más sobre nosotros
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </div>
   </section>
 
   <!-- ===================================================
-       SECCIÓN 2: VESTIDOS (20 PRENDAS)
+       SECCIÓN 2: VESTIDOS
        =================================================== -->
   <section id="vestidos" class="page-section">
     <div class="container" style="padding-top: 40px;">
       <div class="section-header">
         <h2 class="section-title">Colección de Vestidos</h2>
-        <p class="section-subtitle">Explora nuestros 20 modelos de vestidos para toda ocasión</p>
+        <p class="section-subtitle">Explora nuestros modelos de vestidos para toda ocasión</p>
       </div>
 
       <div class="products-grid" id="vestidos-grid">
-        <!-- Cargado dinámicamente por JS (20 prendas) -->
+        <!-- Carga dinámica -->
       </div>
     </div>
   </section>
 
   <!-- ===================================================
-       SECCIÓN 3: CONJUNTOS (9 PRENDAS)
+       SECCIÓN 3: CONJUNTOS
        =================================================== -->
   <section id="conjuntos" class="page-section">
     <div class="container" style="padding-top: 40px;">
@@ -746,13 +816,13 @@
       </div>
 
       <div class="products-grid" id="conjuntos-grid">
-        <!-- Cargado dinámicamente por JS (9 prendas) -->
+        <!-- Carga dinámica -->
       </div>
     </div>
   </section>
 
   <!-- ===================================================
-       SECCIÓN 4: VER TODO (35 PRENDAS)
+       SECCIÓN 4: VER TODO
        =================================================== -->
   <section id="vertodo" class="page-section">
     <div class="container" style="padding-top: 40px;">
@@ -761,7 +831,6 @@
         <p class="section-subtitle">Todas nuestras creaciones en un solo lugar</p>
       </div>
 
-      <!-- FILTRO RÁPIDO EN VER TODO -->
       <div class="filter-bar">
         <button class="filter-btn active" onclick="filterCatalog('todos', this)">Todos (35)</button>
         <button class="filter-btn" onclick="filterCatalog('vestidos', this)">Vestidos (20)</button>
@@ -770,13 +839,13 @@
       </div>
 
       <div class="products-grid" id="vertodo-grid">
-        <!-- Cargado dinámicamente por JS (35 prendas) -->
+        <!-- Carga dinámica -->
       </div>
     </div>
   </section>
 
   <!-- ===================================================
-       SECCIÓN 5: QUIÉNES SOMOS
+       SECCIÓN 5: QUIÉNES SOMOS (4 SECCIONES ALTERNADAS)
        =================================================== -->
   <section id="quienes-somos" class="page-section">
     <div class="container" style="padding-top: 40px;">
@@ -787,42 +856,107 @@
         </p>
       </div>
 
-      <div class="history-grid" style="margin-bottom: 50px;">
-        <div class="history-content">
-          <h2 style="font-size: 2.8rem;">Moda con Propósito</h2>
+      <!-- SECCIÓN 1: Texto Izquierda, Imagen Derecha -->
+      <div class="alternating-section">
+        <div class="alternating-text">
+          <h2>Moda con Propósito</h2>
           <p>
             En <strong>María Bonita</strong> creamos prendas que celebran la feminidad en todas sus formas. Seleccionamos materiales de alta calidad, ligeros y de textura suave que garantizan caídas perfectas y una durabilidad prolongada.
           </p>
-          <p>
-            Desde vestidos casuales para tus días de verano hasta conjuntos sofisticados para eventos nocturnos, nos esforzamos en acompañarte en cada instante de tu vida.
-          </p>
         </div>
-        <div class="history-image">
-          <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80" alt="Boutique Maria Bonita">
+        <div class="alternating-image">
+          <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80" alt="Moda con propósito">
         </div>
       </div>
 
-      <!-- VALORES DE LA MARCA -->
-      <div class="values-grid">
-        <div class="value-card">
-          <i class="fa-solid fa-heart"></i>
-          <h3>Diseño Auténtico</h3>
-          <p>Patrones pensados en la anatomía y preferencias de nuestras clientas.</p>
+      <!-- SECCIÓN 2: Imagen Izquierda, Texto Derecha -->
+      <div class="alternating-section reverse">
+        <div class="alternating-text">
+          <h2>Nuestra Esencia</h2>
+          <p>
+            Inspiradas en la mujer moderna y versátil, diseñamos colecciones que se adaptan tanto a un día de oficina como a una cena elegante. Cada detalle de confección busca resaltar la belleza natural de quien lo lleva.
+          </p>
         </div>
-        <div class="value-card">
-          <i class="fa-solid fa-gem"></i>
-          <h3>Calidad Premium</h3>
-          <p>Telas seleccionadas cuidadosamente para un acabado impecable.</p>
+        <div class="alternating-image">
+          <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=800&q=80" alt="Nuestra Esencia">
         </div>
-        <div class="value-card">
-          <i class="fa-solid fa-leaf"></i>
-          <h3>Producción Responsable</h3>
-          <p>Confección ética apoyando al talento y mano de obra local.</p>
+      </div>
+
+      <!-- SECCIÓN 3: Texto Izquierda, Imagen Derecha -->
+      <div class="alternating-section">
+        <div class="alternating-text">
+          <h2>Calidad y Compromiso Local</h2>
+          <p>
+            Nos enorgullece trabajar junto a talleres y artesanos locales en Ecuador, impulsando la producción ética e incentivando un crecimiento sostenible en nuestra comunidad de la moda.
+          </p>
+        </div>
+        <div class="alternating-image">
+          <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?auto=format&fit=crop&w=800&q=80" alt="Calidad y Compromiso">
+        </div>
+      </div>
+
+      <!-- SECCIÓN 4: Imagen Izquierda, Texto Derecha -->
+      <div class="alternating-section reverse">
+        <div class="alternating-text">
+          <h2>Atención Personalizada</h2>
+          <p>
+            Para nosotros cada clienta es única. Brindamos asesoría en tallas, colores y estilos de forma directa a través de nuestros canales de WhatsApp e Instagram para asegurar tu satisfacción total.
+          </p>
+        </div>
+        <div class="alternating-image">
+          <img src="https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?auto=format&fit=crop&w=800&q=80" alt="Atención Personalizada">
         </div>
       </div>
 
     </div>
   </section>
+
+  <!-- ===================================================
+       MODAL POPUP DE PREVISTA DE PRODUCTO
+       =================================================== -->
+  <div id="product-modal" class="modal" onclick="closeModalOnOuterClick(event)">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal()">&times;</span>
+      <div class="modal-body">
+        
+        <!-- Galería de imágenes e interacción -->
+        <div class="modal-gallery">
+          <div class="main-img-wrap">
+            <button class="nav-arrow prev" onclick="navigateImage(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+            <img id="modal-main-img" src="" alt="Producto">
+            <button class="nav-arrow next" onclick="navigateImage(1)"><i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+        </div>
+
+        <!-- Información detallada del producto -->
+        <div class="modal-details">
+          <h2 id="modal-title" style="font-size: 2rem; color: var(--dark-text);"></h2>
+          <div id="modal-price" style="font-size: 1.5rem; font-weight: bold; color: var(--primary-pink); margin: 10px 0;"></div>
+          <p id="modal-desc" style="color: var(--muted-text); margin-bottom: 15px;"></p>
+
+          <!-- Variantes de Color -->
+          <div id="modal-colors-wrap" style="display: none;">
+            <strong style="font-size: 0.95rem;">Colores disponibles:</strong>
+            <div id="modal-swatches" class="color-swatches"></div>
+          </div>
+
+          <!-- Instagram Reel -->
+          <div id="modal-reel-box" class="reel-box" style="display: none;">
+            <h4><i class="fa-brands fa-instagram"></i> Ver este vestido en Instagram Reel</h4>
+            <a id="modal-reel-link" href="#" target="_blank" style="color: var(--dark-text); font-weight: bold; text-decoration: underline;">
+              Ver demostración en video <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </a>
+          </div>
+
+          <!-- Botón directo WhatsApp -->
+          <a id="modal-wa-btn" href="#" target="_blank" class="btn-primary" style="display: block; text-align: center; margin-top: 25px;">
+            <i class="fa-brands fa-whatsapp"></i> Consultar Disponibilidad
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
   <!-- ===================================================
        PIE DE PÁGINA (FOOTER)
@@ -831,11 +965,10 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-about">
-          <div class="footer-logo">María <span>Bonita</span></div>
+          <div class="footer-logo">MARÍA BONITA</div>
           <p>Tu boutique de confianza con lo mejor en tendencia, vestidos y conjuntos femeninos. Envíos a todo el país.</p>
           <div class="social-links">
             <a href="https://instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://facebook.com" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
             <a href="https://wa.me/593999999999" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
           </div>
         </div>
@@ -852,16 +985,6 @@
         </div>
 
         <div class="footer-col">
-          <h4>Categorías</h4>
-          <ul>
-            <li><a href="#vestidos" onclick="showSection('vestidos')">New Arrivals</a></li>
-            <li><a href="#vestidos" onclick="showSection('vestidos')">Vestidos de Fiesta</a></li>
-            <li><a href="#vestidos" onclick="showSection('vestidos')">Vestidos Casuales</a></li>
-            <li><a href="#conjuntos" onclick="showSection('conjuntos')">Sets 2 Piezas</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
           <h4>Contacto</h4>
           <ul class="contact-info">
             <li><i class="fa-solid fa-location-dot"></i> <span>Samborondón / Guayaquil, Ecuador</span></li>
@@ -873,70 +996,113 @@
       </div>
 
       <div class="copyright">
-        <p>&copy; 2026 María Bonita Boutique. Todos los derechos reservados. Diseñado para Vercel / GitHub Pages.</p>
+        <p>&copy; 2026 María Bonita</p>
       </div>
     </div>
   </footer>
 
   <!-- ===================================================
-       LÓGICA JAVASCRIPT (PRODUCTOS Y NAVEGACIÓN)
+       LÓGICA JAVASCRIPT
        =================================================== -->
   <script>
-    /* NUMERO DE WHATSAPP PARA PEDIDOS */
     const WHATSAPP_NUMBER = "593999999999"; 
 
-    /* BASE DE DATOS DE PRODUCTOS (35 EN TOTAL) */
+    /* BASE DE DATOS CON ALGUNOS VESTIDOS/CONJUNTOS CON COLORES Y REELS */
     const productos = [
-      // --- 20 VESTIDOS (IDs 1 al 20) ---
-      { id: 1, nombre: "Vestido Lino Rosa Pastora", categoria: "vestidos", precio: 45.00, imagen: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=600&q=80", esNewArrival: true },
-      { id: 2, nombre: "Vestido Maxi Floral Esmeralda", categoria: "vestidos", precio: 52.00, imagen: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=600&q=80", esNewArrival: true },
-      { id: 3, nombre: "Vestido Seda Champagne", categoria: "vestidos", precio: 58.00, imagen: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=600&q=80", esNewArrival: true },
-      { id: 4, nombre: "Vestido Midi Encaje Blanco", categoria: "vestidos", precio: 48.00, imagen: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80", esNewArrival: true },
-      { id: 5, nombre: "Vestido Playero Coral", categoria: "vestidos", precio: 38.00, imagen: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=600&q=80", esNewArrival: true },
-      { id: 6, nombre: "Vestido Coctel Negro Elegante", categoria: "vestidos", precio: 62.00, imagen: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&w=600&q=80", esNewArrival: true },
+      { 
+        id: 1, 
+        nombre: "Vestido Lino Rosa Pastora", 
+        categoria: "vestidos", 
+        precio: 45.00, 
+        imagen: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=600&q=80", 
+        esNewArrival: true,
+        descripcion: "Elegante vestido de lino de caída fluida, perfecto para eventos de día y ocasiones frescas.",
+        reel: "https://www.instagram.com/reels/",
+        colores: [
+          { nombre: "Rosa", hex: "#DDA3AB", imagenes: ["https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=600&q=80", "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80"] },
+          { nombre: "Blanco", hex: "#FFFFFF", imagenes: ["https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80"] },
+          { nombre: "Negro", hex: "#222222", imagenes: ["https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&w=600&q=80"] }
+        ]
+      },
+      { 
+        id: 2, 
+        nombre: "Vestido Maxi Floral Esmeralda", 
+        categoria: "vestidos", 
+        precio: 52.00, 
+        imagen: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=600&q=80", 
+        esNewArrival: true,
+        descripcion: "Vestido maxi estampado floral con mangas holgadas y escote en V ajustable.",
+        reel: "https://www.instagram.com/reels/",
+        colores: [
+          { nombre: "Verde Esmeralda", hex: "#1B4D3E", imagenes: ["https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=600&q=80"] },
+          { nombre: "Coral", hex: "#E76F51", imagenes: ["https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=600&q=80"] }
+        ]
+      },
+      { 
+        id: 3, 
+        nombre: "Vestido Seda Champagne", 
+        categoria: "vestidos", 
+        precio: 58.00, 
+        imagen: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=600&q=80", 
+        esNewArrival: true,
+        descripcion: "Diseño minimalista satinado en corte midi, brinda un brillo sutil y sofisticado.",
+        colores: []
+      },
+      { id: 4, nombre: "Vestido Midi Encaje Blanco", categoria: "vestidos", precio: 48.00, imagen: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80", esNewArrival: true, descripcion: "Vestido blanco de encaje fino con detalles románticos.", colores: [] },
+      { id: 5, nombre: "Vestido Playero Coral", categoria: "vestidos", precio: 38.00, imagen: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=600&q=80", esNewArrival: true, descripcion: "Vestido fresco de tela ligera para días de sol.", colores: [] },
+      { id: 6, nombre: "Vestido Coctel Negro Elegante", categoria: "vestidos", precio: 62.00, imagen: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&w=600&q=80", esNewArrival: true, descripcion: "Un básico indispensable para eventos formales o de noche.", colores: [] },
       
-      { id: 7, nombre: "Vestido Satinado Carmín", categoria: "vestidos", precio: 55.00, imagen: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
-      { id: 8, nombre: "Vestido Wrap Estampado Botánico", categoria: "vestidos", precio: 42.00, imagen: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
-      { id: 9, nombre: "Vestido Boho Chic Terracota", categoria: "vestidos", precio: 46.00, imagen: "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
-      { id: 10, nombre: "Vestido Blazer Marfil", categoria: "vestidos", precio: 65.00, imagen: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
-      { id: 11, nombre: "Vestido Halter Dorado Gala", categoria: "vestidos", precio: 70.00, imagen: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
-      { id: 12, nombre: "Vestido Escote V Verde Oliva", categoria: "vestidos", precio: 44.00, imagen: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
-      { id: 13, nombre: "Vestido Plisado Rosa Pastel", categoria: "vestidos", precio: 49.00, imagen: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
-      { id: 14, nombre: "Vestido Denim Soft Casual", categoria: "vestidos", precio: 39.00, imagen: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
-      { id: 15, nombre: "Vestido Strapless Gala Malva", categoria: "vestidos", precio: 68.00, imagen: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
-      { id: 16, nombre: "Vestido Asimétrico Lilas", categoria: "vestidos", precio: 47.00, imagen: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
-      { id: 17, nombre: "Vestido Camisero Rayas Marinas", categoria: "vestidos", precio: 41.00, imagen: "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
-      { id: 18, nombre: "Vestido Mini Primavera Floral", categoria: "vestidos", precio: 36.00, imagen: "https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
-      { id: 19, nombre: "Vestido Volantes Romántico", categoria: "vestidos", precio: 50.00, imagen: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
-      { id: 20, nombre: "Vestido Noche Magenta Satin", categoria: "vestidos", precio: 64.00, imagen: "https://images.unsplash.com/photo-1549062572-544a64fb0c52?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
+      { id: 7, nombre: "Vestido Satinado Carmín", categoria: "vestidos", precio: 55.00, imagen: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Tono rojo intenso con acabado en raso.", colores: [] },
+      { id: 8, nombre: "Vestido Wrap Estampado Botánico", categoria: "vestidos", precio: 42.00, imagen: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Corte cruzado adaptable a todo tipo de silueta.", colores: [] },
+      { id: 9, nombre: "Vestido Boho Chic Terracota", categoria: "vestidos", precio: 46.00, imagen: "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Estilo bohemio en tonos cálidos.", colores: [] },
+      { id: 10, nombre: "Vestido Blazer Marfil", categoria: "vestidos", precio: 65.00, imagen: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Corte blazer estructurado y moderno.", colores: [] },
+      { id: 11, nombre: "Vestido Halter Dorado Gala", categoria: "vestidos", precio: 70.00, imagen: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Escote halter para fiestas de noche.", colores: [] },
+      { id: 12, nombre: "Vestido Escote V Verde Oliva", categoria: "vestidos", precio: 44.00, imagen: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Cómodo y elegante en tono verde oliva.", colores: [] },
+      { id: 13, nombre: "Vestido Plisado Rosa Pastel", categoria: "vestidos", precio: 49.00, imagen: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Falda plisada con movimiento.", colores: [] },
+      { id: 14, nombre: "Vestido Denim Soft Casual", categoria: "vestidos", precio: 39.00, imagen: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Tela tipo denim liviano para el día a día.", colores: [] },
+      { id: 15, nombre: "Vestido Strapless Gala Malva", categoria: "vestidos", precio: 68.00, imagen: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Corte strapless ajustado en la cintura.", colores: [] },
+      { id: 16, nombre: "Vestido Asimétrico Lilas", categoria: "vestidos", precio: 47.00, imagen: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Diseño moderno con ruedo asimétrico.", colores: [] },
+      { id: 17, nombre: "Vestido Camisero Rayas Marinas", categoria: "vestidos", precio: 41.00, imagen: "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Estilo náutico atemporal.", colores: [] },
+      { id: 18, nombre: "Vestido Mini Primavera Floral", categoria: "vestidos", precio: 36.00, imagen: "https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Estampado fresco juvenil.", colores: [] },
+      { id: 19, nombre: "Vestido Volantes Romántico", categoria: "vestidos", precio: 50.00, imagen: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Detalle de volantes suaves en falda y mangas.", colores: [] },
+      { id: 20, nombre: "Vestido Noche Magenta Satin", categoria: "vestidos", precio: 64.00, imagen: "https://images.unsplash.com/photo-1549062572-544a64fb0c52?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Tono magenta vibrante.", colores: [] },
 
-      // --- 9 CONJUNTOS (IDs 21 al 29) ---
-      { id: 21, nombre: "Conjunto Lino Top y Falda Rosado", categoria: "conjuntos", precio: 52.00, imagen: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
-      { id: 22, nombre: "Conjunto Tailored Chaleco y Pantalón Beige", categoria: "conjuntos", precio: 65.00, imagen: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
-      { id: 23, nombre: "Conjunto Satinado Blusa y Short", categoria: "conjuntos", precio: 44.00, imagen: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
-      { id: 24, nombre: "Conjunto Knit Crop y Falda Midi", categoria: "conjuntos", precio: 48.00, imagen: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
-      { id: 25, nombre: "Conjunto Playero Algodón Blanco", categoria: "conjuntos", precio: 40.00, imagen: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
-      { id: 26, nombre: "Conjunto Monocromático Lavanda", categoria: "conjuntos", precio: 58.00, imagen: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
-      { id: 27, nombre: "Conjunto Blazer y Shorts Salmón", categoria: "conjuntos", precio: 59.00, imagen: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
-      { id: 28, nombre: "Conjunto Boho Top y Pantalón Palazo", categoria: "conjuntos", precio: 46.00, imagen: "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
-      { id: 29, nombre: "Conjunto Formal Terciopelo Rosa", categoria: "conjuntos", precio: 69.00, imagen: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
+      // --- 9 CONJUNTOS ---
+      { 
+        id: 21, 
+        nombre: "Conjunto Lino Top y Falda Rosado", 
+        categoria: "conjuntos", 
+        precio: 52.00, 
+        imagen: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80", 
+        esNewArrival: false,
+        descripcion: "Set de dos piezas de top y falda en lino liviano.",
+        colores: [
+          { nombre: "Rosa Pastel", hex: "#DDA3AB", imagenes: ["https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80"] },
+          { nombre: "Beige Nude", hex: "#E6D2C1", imagenes: ["https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=600&q=80"] }
+        ]
+      },
+      { id: 22, nombre: "Conjunto Tailored Chaleco y Pantalón Beige", categoria: "conjuntos", precio: 65.00, imagen: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Set formal estructurado.", colores: [] },
+      { id: 23, nombre: "Conjunto Satinado Blusa y Short", categoria: "conjuntos", precio: 44.00, imagen: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Conjunto fresco satinado.", colores: [] },
+      { id: 24, nombre: "Conjunto Knit Crop y Falda Midi", categoria: "conjuntos", precio: 48.00, imagen: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Tejido liviano acanalado.", colores: [] },
+      { id: 25, nombre: "Conjunto Playero Algodón Blanco", categoria: "conjuntos", precio: 40.00, imagen: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Set cómodo para clima cálido.", colores: [] },
+      { id: 26, nombre: "Conjunto Monocromático Lavanda", categoria: "conjuntos", precio: 58.00, imagen: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Tono pastel en tendencia.", colores: [] },
+      { id: 27, nombre: "Conjunto Blazer y Shorts Salmón", categoria: "conjuntos", precio: 59.00, imagen: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Estilo ejecutivo relajado.", colores: [] },
+      { id: 28, nombre: "Conjunto Boho Top y Pantalón Palazo", categoria: "conjuntos", precio: 46.00, imagen: "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Pantalón holgado y top tejido.", colores: [] },
+      { id: 29, nombre: "Conjunto Formal Terciopelo Rosa", categoria: "conjuntos", precio: 69.00, imagen: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Acabado de textura elegante.", colores: [] },
 
-      // --- 6 OTROS COMPLEMENTOS (IDs 30 al 35) --- Total = 35 prendas
-      { id: 30, nombre: "Blusa Seda Escote Rosa", categoria: "otros", precio: 32.00, imagen: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
-      { id: 31, nombre: "Falda Midi Plisada Nude", categoria: "otros", precio: 35.00, imagen: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
-      { id: 32, nombre: "Top Corsé Encaje Blanco", categoria: "otros", precio: 28.00, imagen: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
-      { id: 33, nombre: "Kimono Estampado Flores", categoria: "otros", precio: 36.00, imagen: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
-      { id: 34, nombre: "Pantalón Palazo Arena", categoria: "otros", precio: 42.00, imagen: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80", esNewArrival: false },
-      { id: 35, nombre: "Cardigan Tejido Suave", categoria: "otros", precio: 38.00, imagen: "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&w=600&q=80", esNewArrival: false }
+      // --- 6 OTROS COMPLEMENTOS ---
+      { id: 30, nombre: "Blusa Seda Escote Rosa", categoria: "otros", precio: 32.00, imagen: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Blusa básica elegante.", colores: [] },
+      { id: 31, nombre: "Falda Midi Plisada Nude", categoria: "otros", precio: 35.00, imagen: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Falda fluida en tono neutro.", colores: [] },
+      { id: 32, nombre: "Top Corsé Encaje Blanco", categoria: "otros", precio: 28.00, imagen: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Top ajustado de encaje.", colores: [] },
+      { id: 33, nombre: "Kimono Estampado Flores", categoria: "otros", precio: 36.00, imagen: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Tercera prenda ligera.", colores: [] },
+      { id: 34, nombre: "Pantalón Palazo Arena", categoria: "otros", precio: 42.00, imagen: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Pantalón tiro alto muy cómodo.", colores: [] },
+      { id: 35, nombre: "Cardigan Tejido Suave", categoria: "otros", precio: 38.00, imagen: "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Abrigo liviano para el atardecer.", colores: [] }
     ];
 
-    /* FUNCION PARA RENDERIZAR UNA TARJETA DE PRODUCTO */
+    /* RENDER DE TARJETAS */
     function crearTarjetaProducto(p) {
-      const mensaje = encodeURIComponent(`Hola María Bonita, me interesa consultar disponibildad del producto: "${p.nombre}" (Precio: $${p.precio.toFixed(2)}).`);
-      const linkWa = `https://wa.me/${WHATSAPP_NUMBER}?text=${mensaje}`;
-
       return `
-        <div class="product-card">
+        <div class="product-card" onclick="openModal(${p.id})">
           ${p.esNewArrival ? '<span class="product-badge">New</span>' : ''}
           <div class="product-img-wrap">
             <img src="${p.imagen}" alt="${p.nombre}" loading="lazy">
@@ -948,50 +1114,32 @@
             </div>
             <div>
               <div class="product-price">$${p.precio.toFixed(2)}</div>
-              <a href="${linkWa}" target="_blank" class="btn-buy" style="width:100%;">
-                <i class="fa-brands fa-whatsapp"></i> Consultar
-              </a>
+              <button class="btn-buy" style="width:100%;">
+                <i class="fa-regular fa-eye"></i> Ver Detalles
+              </button>
             </div>
           </div>
         </div>
       `;
     }
 
-    /* CARGAR PRODUCTOS EN LAS DIFERENTES SECCIONES */
     function cargarProductos() {
-      // 1. New Arrivals (6 Vestidos en el inicio)
       const newArrivals = productos.filter(p => p.esNewArrival).slice(0, 6);
-      const newArrivalsContainer = document.getElementById('new-arrivals-grid');
-      if(newArrivalsContainer) {
-        newArrivalsContainer.innerHTML = newArrivals.map(p => crearTarjetaProducto(p)).join('');
-      }
+      document.getElementById('new-arrivals-grid').innerHTML = newArrivals.map(p => crearTarjetaProducto(p)).join('');
 
-      // 2. Vestidos (20 productos)
       const vestidos = productos.filter(p => p.categoria === 'vestidos');
-      const vestidosContainer = document.getElementById('vestidos-grid');
-      if(vestidosContainer) {
-        vestidosContainer.innerHTML = vestidos.map(p => crearTarjetaProducto(p)).join('');
-      }
+      document.getElementById('vestidos-grid').innerHTML = vestidos.map(p => crearTarjetaProducto(p)).join('');
 
-      // 3. Conjuntos (9 productos)
       const conjuntos = productos.filter(p => p.categoria === 'conjuntos');
-      const conjuntosContainer = document.getElementById('conjuntos-grid');
-      if(conjuntosContainer) {
-        conjuntosContainer.innerHTML = conjuntos.map(p => crearTarjetaProducto(p)).join('');
-      }
+      document.getElementById('conjuntos-grid').innerHTML = conjuntos.map(p => crearTarjetaProducto(p)).join('');
 
-      // 4. Ver Todo (35 productos)
       renderVerTodo(productos);
     }
 
     function renderVerTodo(lista) {
-      const verTodoContainer = document.getElementById('vertodo-grid');
-      if(verTodoContainer) {
-        verTodoContainer.innerHTML = lista.map(p => crearTarjetaProducto(p)).join('');
-      }
+      document.getElementById('vertodo-grid').innerHTML = lista.map(p => crearTarjetaProducto(p)).join('');
     }
 
-    /* FILTRO DE CATEGORIAS EN VER TODO */
     function filterCatalog(categoria, btn) {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
       if(btn) btn.classList.add('active');
@@ -999,54 +1147,122 @@
       if (categoria === 'todos') {
         renderVerTodo(productos);
       } else {
-        const filtrados = productos.filter(p => p.categoria === categoria);
-        renderVerTodo(filtrados);
+        renderVerTodo(productos.filter(p => p.categoria === categoria));
       }
     }
 
-    /* CAMBIO DE SECCIONES (SPA) */
+    /* ESTADO DE GALERÍA DE IMÁGENES EN EL MODAL */
+    let activeImages = [];
+    let currentImageIndex = 0;
+
+    function openModal(id) {
+      const product = productos.find(p => p.id === id);
+      if(!product) return;
+
+      document.getElementById('modal-title').textContent = product.nombre;
+      document.getElementById('modal-price').textContent = `$${product.precio.toFixed(2)}`;
+      document.getElementById('modal-desc').textContent = product.descripcion || "Prenda exclusiva diseñada con alta atención al detalle y acabado femenino.";
+
+      // Link WhatsApp
+      const mensaje = encodeURIComponent(`Hola María Bonita, me interesa consultar el producto: "${product.nombre}" ($${product.precio.toFixed(2)})`);
+      document.getElementById('modal-wa-btn').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${mensaje}`;
+
+      // Configuración de Colores e Imágenes
+      const colorsWrap = document.getElementById('modal-colors-wrap');
+      const swatchesContainer = document.getElementById('modal-swatches');
+
+      if (product.colores && product.colores.length > 0) {
+        colorsWrap.style.display = 'block';
+        swatchesContainer.innerHTML = product.colores.map((c, index) => `
+          <div class="swatch ${index === 0 ? 'active' : ''}" 
+               style="background-color: ${c.hex};" 
+               title="${c.nombre}" 
+               onclick="selectColor(${product.id}, ${index}, this)"></div>
+        `).join('');
+
+        // Cargar imágenes del primer color
+        activeImages = product.colores[0].imagenes;
+      } else {
+        colorsWrap.style.display = 'none';
+        activeImages = [product.imagen];
+      }
+
+      currentImageIndex = 0;
+      updateModalImage();
+
+      // Reel de Instagram
+      const reelBox = document.getElementById('modal-reel-box');
+      if (product.reel) {
+        reelBox.style.display = 'block';
+        document.getElementById('modal-reel-link').href = product.reel;
+      } else {
+        reelBox.style.display = 'none';
+      }
+
+      document.getElementById('product-modal').classList.add('active');
+    }
+
+    function selectColor(productId, colorIndex, swatchElem) {
+      document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+      swatchElem.classList.add('active');
+
+      const product = productos.find(p => p.id === productId);
+      activeImages = product.colores[colorIndex].imagenes;
+      currentImageIndex = 0;
+      updateModalImage();
+    }
+
+    function navigateImage(direction) {
+      if(activeImages.length <= 1) return;
+      currentImageIndex = (currentImageIndex + direction + activeImages.length) % activeImages.length;
+      updateModalImage();
+    }
+
+    function updateModalImage() {
+      document.getElementById('modal-main-img').src = activeImages[currentImageIndex];
+    }
+
+    function closeModal() {
+      document.getElementById('product-modal').classList.remove('active');
+    }
+
+    function closeModalOnOuterClick(event) {
+      if (event.target.id === 'product-modal') {
+        closeModal();
+      }
+    }
+
+    /* EFECTO SCROLL EN BANNER HERO DE INICIO */
+    window.addEventListener('scroll', () => {
+      const banner = document.getElementById('hero-banner');
+      if (banner) {
+        const scrolled = window.scrollY;
+        // Ajusta el porcentaje del recorte según el nivel de scroll
+        const insetVal = Math.min(25, scrolled / 20); 
+        banner.style.clipPath = `inset(${insetVal}% ${insetVal}%)`;
+      }
+    });
+
+    /* NAVEGACIÓN Y MENÚ MÓVIL */
     function showSection(sectionId) {
-      // Ocultar todas las secciones
-      const sections = document.querySelectorAll('.page-section');
-      sections.forEach(s => s.classList.remove('active'));
-
-      // Mostrar la seleccionada
+      document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
       const target = document.getElementById(sectionId);
-      if(target) {
-        target.classList.add('active');
-      }
+      if(target) target.classList.add('active');
 
-      // Actualizar Links de Navegación
-      const navLinks = document.querySelectorAll('nav a');
-      navLinks.forEach(l => l.classList.remove('active'));
-      
+      document.querySelectorAll('nav a').forEach(l => l.classList.remove('active'));
       const activeLink = document.getElementById(`nav-${sectionId}`);
-      if(activeLink) {
-        activeLink.classList.add('active');
-      }
+      if(activeLink) activeLink.classList.add('active');
 
-      // Cerrar menú móvil si está abierto
       document.getElementById('navbar').classList.remove('open');
-
-      // Scroll arriba suave
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    /* MENÚ MÓVIL TOGGLE */
     function toggleMenu() {
-      const nav = document.getElementById('navbar');
-      nav.classList.toggle('open');
+      document.getElementById('navbar').classList.toggle('open');
     }
 
-    /* INICIALIZAR AL CARGAR PÁGINA */
     document.addEventListener('DOMContentLoaded', () => {
       cargarProductos();
-
-      // Soporte para hash en URL (ej: miweb.com/#vestidos)
-      const hash = window.location.hash.replace('#', '');
-      if(hash && document.getElementById(hash)) {
-        showSection(hash);
-      }
     });
   </script>
 </body>
