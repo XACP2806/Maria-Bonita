@@ -101,15 +101,6 @@
       gap: 12px;
     }
 
-    .logo-img {
-      width: 45px;
-      height: 45px;
-      object-fit: cover;
-      border-radius: 6px;
-      border: 1px solid var(--border-color);
-      cursor: pointer;
-    }
-
     .logo {
       font-family: var(--font-nav);
       font-size: 1.8rem;
@@ -243,7 +234,8 @@
 
     .product-img-wrap {
       width: 100%;
-      height: 380px;
+      height: auto;
+      aspect-ratio: 2 / 3;
       overflow: hidden;
       background-color: #f2f2f2;
       position: relative;
@@ -252,7 +244,7 @@
     .product-img-wrap img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       transition: transform 0.5s ease;
     }
 
@@ -375,6 +367,10 @@
       display: flex;
     }
 
+    body.modal-open {
+      overflow: hidden;
+    }
+
     .modal-content {
       background-color: var(--white);
       width: 100%;
@@ -422,7 +418,8 @@
     .main-img-wrap {
       position: relative;
       width: 100%;
-      height: 400px;
+      height: auto;
+      aspect-ratio: 2 / 3;
       background-color: #f2f2f2;
       border-radius: 8px;
       overflow: hidden;
@@ -431,7 +428,7 @@
     .main-img-wrap img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
     }
 
     .nav-arrow {
@@ -461,8 +458,14 @@
 
     .color-swatches {
       display: flex;
+      flex-wrap: wrap;
       gap: 10px;
       margin: 15px 0;
+    }
+
+    #modal-desc {
+      white-space: pre-line;
+      line-height: 1.65;
     }
 
     .swatch {
@@ -493,6 +496,13 @@
       align-items: center;
       gap: 8px;
       color: var(--primary-pink);
+    }
+
+    #modal-reel-container,
+    #modal-reel-container .instagram-media {
+      min-width: 0 !important;
+      max-width: 100% !important;
+      width: 100% !important;
     }
 
     /* ===================================================
@@ -745,6 +755,70 @@
       .footer-grid {
         grid-template-columns: 1fr;
       }
+
+      .section-title {
+        font-size: 2.7rem;
+      }
+
+      .section-header {
+        margin-bottom: 25px;
+      }
+
+      .products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .product-info {
+        padding: 12px;
+      }
+
+      .product-category {
+        font-size: 0.72rem;
+      }
+
+      .product-name,
+      .product-price {
+        font-size: 1rem;
+      }
+
+      .btn-buy {
+        padding: 9px 6px;
+        font-size: 0.82rem;
+      }
+
+      .modal {
+        align-items: flex-start;
+        padding: 0;
+      }
+
+      .modal-content {
+        min-height: 100%;
+        max-height: none;
+        border-radius: 0;
+      }
+
+      .modal-body {
+        padding: 58px 16px 28px;
+        gap: 22px;
+        overflow-y: visible;
+      }
+
+      .close-modal {
+        position: fixed;
+        top: 10px;
+        right: 12px;
+      }
+
+      .reel-box {
+        padding: 10px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
@@ -759,10 +833,6 @@
   <header>
     <div class="container header-container">
       <div class="logo-container">
-        <!-- Logo de imagen con hipervínculo al inicio -->
-        <a href="#" onclick="showSection('inicio'); return false;">
-          <img src="imagenes/logo.jpg" alt="Logo María Bonita" class="logo-img" onerror="this.src='https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80';">
-        </a>
         <a href="#" onclick="showSection('inicio'); return false;" class="logo">
           MARÍA BONITA
         </a>
@@ -875,10 +945,9 @@
       </div>
 
       <div class="filter-bar">
-        <button class="filter-btn active" onclick="filterCatalog('todos', this)">Todos (35)</button>
-        <button class="filter-btn" onclick="filterCatalog('vestidos', this)">Vestidos (20)</button>
-        <button class="filter-btn" onclick="filterCatalog('conjuntos', this)">Conjuntos (9)</button>
-        <button class="filter-btn" onclick="filterCatalog('otros', this)">Otros (6)</button>
+        <button class="filter-btn active" onclick="filterCatalog('todos', this)">Todos (22)</button>
+        <button class="filter-btn" onclick="filterCatalog('vestidos', this)">Vestidos (16)</button>
+        <button class="filter-btn" onclick="filterCatalog('conjuntos', this)">Conjuntos (6)</button>
       </div>
 
       <div class="products-grid" id="vertodo-grid">
@@ -1019,10 +1088,10 @@
       <div class="footer-grid">
         <div class="footer-about">
           <div class="footer-logo">MARÍA BONITA</div>
-          <p>Tu boutique de confianza con lo mejor en tendencia, vestidos y conjuntos femeninos. Envíos a todo el país.</p>
+          <p>Diseños 100% originales, creados y confeccionados por talentosas manos ecuatorianas. Envíos a todo el Ecuador.</p>
           <div class="social-links">
-            <a href="https://instagram.com" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://wa.me/593999999999" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://www.instagram.com/maria_bonitaec?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" aria-label="Instagram de María Bonita"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://wa.me/message/B33WXGKMK6MZC1" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp de María Bonita"><i class="fa-brands fa-whatsapp"></i></a>
           </div>
         </div>
 
@@ -1040,10 +1109,8 @@
         <div class="footer-col">
           <h4>Contacto</h4>
           <ul class="contact-info">
-            <li><i class="fa-solid fa-location-dot"></i> <span>Samborondón / Guayaquil, Ecuador</span></li>
-            <li><i class="fa-solid fa-envelope"></i> <span>contacto@mariabonita.ec</span></li>
-            <li><i class="fa-brands fa-whatsapp"></i> <span>+593 99 999 9999</span></li>
-            <li><i class="fa-regular fa-clock"></i> <span>Lun - Sáb: 10:00 - 19:00</span></li>
+            <li><i class="fa-brands fa-whatsapp"></i> <span>+593 96 730 4153</span></li>
+            <li><i class="fa-solid fa-truck-fast"></i> <span>Envíos a todo el Ecuador</span></li>
           </ul>
         </div>
       </div>
@@ -1058,99 +1125,287 @@
        LÓGICA JAVASCRIPT
        =================================================== -->
   <script>
-    const WHATSAPP_NUMBER = "593999999999"; 
+    const WHATSAPP_NUMBER = "593967304153";
 
     /* BASE DE DATOS CON VESTIDOS/CONJUNTOS CON COLORES Y REELS */
     const productos = [
-      { 
-        id: 1, 
-        nombre: "Vestido Lino Rosa Pastora", 
-        categoria: "vestidos", 
-        precio: 45.00, 
-        imagen: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=600&q=80", 
+      {
+        id: 1,
+        nombre: "Xaviera set",
+        categoria: "conjuntos",
+        precio: 88.00,
+        imagen: "imagenes/Xaviera set.png",
         esNewArrival: true,
-        descripcion: "Elegante vestido de lino de caída fluida, perfecto para eventos de día y ocasiones frescas.",
-        tieneReel: true,
-        colores: [
-          { nombre: "Rosa", hex: "#DDA3AB", imagenes: ["https://images.unsplash.com/photo-1595777457583-95e059d581b8?auto=format&fit=crop&w=600&q=80"] },
-          { nombre: "Blanco", hex: "#FFFFFF", imagenes: ["https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80"] },
-          { nombre: "Negro", hex: "#222222", imagenes: ["https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&w=600&q=80"] }
-        ]
-      },
-      { 
-        id: 2, 
-        nombre: "Vestido Maxi Floral Esmeralda", 
-        categoria: "vestidos", 
-        precio: 52.00, 
-        imagen: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=600&q=80", 
-        esNewArrival: true,
-        descripcion: "Vestido maxi estampado floral con mangas holgadas y escote en V ajustable.",
-        tieneReel: true,
-        colores: [
-          { nombre: "Verde Esmeralda", hex: "#1B4D3E", imagenes: ["https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?auto=format&fit=crop&w=600&q=80"] },
-          { nombre: "Coral", hex: "#E76F51", imagenes: ["https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=600&q=80"] }
-        ]
-      },
-      { 
-        id: 3, 
-        nombre: "Vestido Seda Champagne", 
-        categoria: "vestidos", 
-        precio: 58.00, 
-        imagen: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=600&q=80", 
-        esNewArrival: true,
-        descripcion: "Diseño minimalista satinado en corte midi, brinda un brillo sutil y sofisticado.",
-        tieneReel: true,
+        ordenNew: 5,
+        descripcion: "Set de dos piezas, pantalón palazzo con detalle de bolsillos y blusa asimétrica off shoulder con detalle de una manga, puño y botones forrados. ¡Una belleza!\n\nDisponible en azul petróleo, un tono oscuro y profundo que combina azul y verde, evocando el fondo marino: sofisticado y elegante.\n\nIdeal para eventos semiformales; puedes usarlo junto o por separado y armar looks diferentes.",
+        reel: "https://www.instagram.com/reel/DXc0bBWugDs",
         colores: []
       },
-      { id: 4, nombre: "Vestido Midi Encaje Blanco", categoria: "vestidos", precio: 48.00, imagen: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80", esNewArrival: true, descripcion: "Vestido blanco de encaje fino con detalles románticos.", tieneReel: true, colores: [] },
-      { id: 5, nombre: "Vestido Playero Coral", categoria: "vestidos", precio: 38.00, imagen: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=600&q=80", esNewArrival: true, descripcion: "Vestido fresco de tela ligera para días de sol.", tieneReel: true, colores: [] },
-      { id: 6, nombre: "Vestido Coctel Negro Elegante", categoria: "vestidos", precio: 62.00, imagen: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&w=600&q=80", esNewArrival: true, descripcion: "Un básico indispensable para eventos formales o de noche.", tieneReel: true, colores: [] },
-      
-      { id: 7, nombre: "Vestido Satinado Carmín", categoria: "vestidos", precio: 55.00, imagen: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Tono rojo intenso con acabado en raso.", tieneReel: true, colores: [] },
-      { id: 8, nombre: "Vestido Wrap Estampado Botánico", categoria: "vestidos", precio: 42.00, imagen: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Corte cruzado adaptable a todo tipo de silueta.", tieneReel: true, colores: [] },
-      { id: 9, nombre: "Vestido Boho Chic Terracota", categoria: "vestidos", precio: 46.00, imagen: "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Estilo bohemio en tonos cálidos.", tieneReel: true, colores: [] },
-      { id: 10, nombre: "Vestido Blazer Marfil", categoria: "vestidos", precio: 65.00, imagen: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Corte blazer estructurado y moderno.", tieneReel: true, colores: [] },
-      { id: 11, nombre: "Vestido Halter Dorado Gala", categoria: "vestidos", precio: 70.00, imagen: "https://images.unsplash.com/photo-1518895949257-7621c3c786d7?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Escote halter para fiestas de noche.", tieneReel: true, colores: [] },
-      { id: 12, nombre: "Vestido Escote V Verde Oliva", categoria: "vestidos", precio: 44.00, imagen: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Cómodo y elegante en tono verde oliva.", tieneReel: true, colores: [] },
-      { id: 13, nombre: "Vestido Plisado Rosa Pastel", categoria: "vestidos", precio: 49.00, imagen: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Falda plisada con movimiento.", tieneReel: true, colores: [] },
-      { id: 14, nombre: "Vestido Denim Soft Casual", categoria: "vestidos", precio: 39.00, imagen: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Tela tipo denim liviano para el día a día.", tieneReel: true, colores: [] },
-      { id: 15, nombre: "Vestido Strapless Gala Malva", categoria: "vestidos", precio: 68.00, imagen: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Corte strapless ajustado en la cintura.", tieneReel: true, colores: [] },
-      { id: 16, nombre: "Vestido Asimétrico Lilas", categoria: "vestidos", precio: 47.00, imagen: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Diseño moderno con ruedo asimétrico.", tieneReel: true, colores: [] },
-      { id: 17, nombre: "Vestido Camisero Rayas Marinas", categoria: "vestidos", precio: 41.00, imagen: "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Estilo náutico atemporal.", tieneReel: true, colores: [] },
-      { id: 18, nombre: "Vestido Mini Primavera Floral", categoria: "vestidos", precio: 36.00, imagen: "https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Estampado fresco juvenil.", tieneReel: true, colores: [] },
-      { id: 19, nombre: "Vestido Volantes Romántico", categoria: "vestidos", precio: 50.00, imagen: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Detalle de volantes suaves en falda y mangas.", tieneReel: true, colores: [] },
-      { id: 20, nombre: "Vestido Noche Magenta Satin", categoria: "vestidos", precio: 64.00, imagen: "https://images.unsplash.com/photo-1549062572-544a64fb0c52?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Tono magenta vibrante.", tieneReel: true, colores: [] },
-
-      // --- 9 CONJUNTOS ---
-      { 
-        id: 21, 
-        nombre: "Conjunto Lino Top y Falda Rosado", 
-        categoria: "conjuntos", 
-        precio: 52.00, 
-        imagen: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80", 
+      {
+        id: 2,
+        nombre: "Perfect set",
+        categoria: "conjuntos",
+        precio: 88.00,
+        imagen: "imagenes/Perfect set.png",
         esNewArrival: false,
-        descripcion: "Set de dos piezas de top y falda en lino liviano.",
+        descripcion: "Set de lino con pantalón palazzo y camisa con bolsillos.\n\nEs un set perfecto para tu día a día: úsalo con tacos o tenis, en eventos casuales y semiformales.",
+        reel: "https://www.instagram.com/reel/DUWqAoBjgaG",
+        colores: []
+      },
+      {
+        id: 3,
+        nombre: "Romina set",
+        categoria: "conjuntos",
+        precio: 88.00,
+        imagen: "imagenes/Romina set.png",
+        esNewArrival: false,
+        descripcion: "Set de dos piezas en cashmere, fibra natural excepcionalmente suave y ligera, ideal para eventos semiformales y casuales, combinable con piezas de otras texturas y colores.\n\nJuega con los accesorios y logra looks increíbles.\n\nDisponible en color verde militar y beige.",
+        reel: "https://www.instagram.com/reel/DTbXA01jmSX",
+        colores: []
+      },
+      {
+        id: 4,
+        nombre: "Rafaela dress",
+        categoria: "vestidos",
+        precio: 88.00,
+        imagen: "imagenes/Rafaela dress.png",
+        esNewArrival: false,
+        descripcion: "La elegancia del blanco.\n\nGuía de estilo:\nEventos de día: bautizos o comuniones, brunch o almuerzo elegante y eventos culturales.\nEventos de noche: cócteles o cenas formales, fiestas en azotea o rooftop, despedidas o cumpleaños elegantes.\nCeremonias y celebraciones: civil o pedida de mano.",
+        reel: "https://www.instagram.com/reel/DOE0ZyiDoNX",
+        colores: []
+      },
+      {
+        id: 5,
+        nombre: "Catalina dress",
+        categoria: "vestidos",
+        precio: 88.00,
+        imagen: "imagenes/Catalina dress.png",
+        esNewArrival: false,
+        descripcion: "Vestido de lino de dos piezas, top forrado con cierre posterior y falda amplia con bolsillos y cinturón.\n\nDisponible en rosado, negro, blanco y beige.",
+        reel: "https://www.instagram.com/reel/DKstMiuM3AJ",
         colores: [
-          { nombre: "Rosa Pastel", hex: "#DDA3AB", imagenes: ["https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=600&q=80"] },
-          { nombre: "Beige Nude", hex: "#E6D2C1", imagenes: ["https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=600&q=80"] }
+          { nombre: "Beige", hex: "#D7C2A6", imagenes: ["imagenes/Catalina dress.png"] },
+          { nombre: "Rosado", hex: "#D99AA5", imagenes: ["imagenes/Catalina dress rosado.png"] },
+          { nombre: "Negro", hex: "#202020", imagenes: ["imagenes/Catalina dress negro.png"] },
+          { nombre: "Blanco", hex: "#FFFFFF", imagenes: ["imagenes/Catalina dress blanco.png"] }
         ]
       },
-      { id: 22, nombre: "Conjunto Tailored Chaleco y Pantalón Beige", categoria: "conjuntos", precio: 65.00, imagen: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Set formal estructurado.", colores: [] },
-      { id: 23, nombre: "Conjunto Satinado Blusa y Short", categoria: "conjuntos", precio: 44.00, imagen: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Conjunto fresco satinado.", colores: [] },
-      { id: 24, nombre: "Conjunto Knit Crop y Falda Midi", categoria: "conjuntos", precio: 48.00, imagen: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Tejido liviano acanalado.", colores: [] },
-      { id: 25, nombre: "Conjunto Playero Algodón Blanco", categoria: "conjuntos", precio: 40.00, imagen: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Set cómodo para clima cálido.", colores: [] },
-      { id: 26, nombre: "Conjunto Monocromático Lavanda", categoria: "conjuntos", precio: 58.00, imagen: "https://images.unsplash.com/photo-1566174053879-31528523f8ae?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Tono pastel en tendencia.", colores: [] },
-      { id: 27, nombre: "Conjunto Blazer y Shorts Salmón", categoria: "conjuntos", precio: 59.00, imagen: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Estilo ejecutivo relajado.", colores: [] },
-      { id: 28, nombre: "Conjunto Boho Top y Pantalón Palazo", categoria: "conjuntos", precio: 46.00, imagen: "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Pantalón holgado y top tejido.", colores: [] },
-      { id: 29, nombre: "Conjunto Formal Terciopelo Rosa", categoria: "conjuntos", precio: 69.00, imagen: "https://images.unsplash.com/photo-1502716119720-b23a93e5fe1b?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Acabado de textura elegante.", colores: [] },
-
-      // --- 6 OTROS COMPLEMENTOS ---
-      { id: 30, nombre: "Blusa Seda Escote Rosa", categoria: "otros", precio: 32.00, imagen: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Blusa básica elegante.", colores: [] },
-      { id: 31, nombre: "Falda Midi Plisada Nude", categoria: "otros", precio: 35.00, imagen: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Falda fluida en tono neutro.", colores: [] },
-      { id: 32, nombre: "Top Corsé Encaje Blanco", categoria: "otros", precio: 28.00, imagen: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Top ajustado de encaje.", colores: [] },
-      { id: 33, nombre: "Kimono Estampado Flores", categoria: "otros", precio: 36.00, imagen: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Tercera prenda ligera.", colores: [] },
-      { id: 34, nombre: "Pantalón Palazo Arena", categoria: "otros", precio: 42.00, imagen: "https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Pantalón tiro alto muy cómodo.", colores: [] },
-      { id: 35, nombre: "Cardigan Tejido Suave", categoria: "otros", precio: 38.00, imagen: "https://images.unsplash.com/photo-1525507119028-ed4c629a60a3?auto=format&fit=crop&w=600&q=80", esNewArrival: false, descripcion: "Abrigo liviano para el atardecer.", colores: [] }
+      {
+        id: 6,
+        nombre: "Florencia dress",
+        categoria: "vestidos",
+        precio: 88.00,
+        imagen: "imagenes/Florencia Dress.png",
+        esNewArrival: false,
+        descripcion: "Perfecto para un matrimonio en la playa, una hacienda o un evento de tarde-noche en la ciudad. También es ideal para una graduación o una fiesta semiformal.",
+        reel: "https://www.instagram.com/reel/C_tsJXZsGp8",
+        colores: []
+      },
+      {
+        id: 7,
+        nombre: "Maxima dress",
+        categoria: "vestidos",
+        precio: 88.00,
+        imagen: "imagenes/Maxima dress verde.png",
+        esNewArrival: true,
+        ordenNew: 6,
+        descripcion: "Vestido camisero midi en lino bordado con cuello Mao, detalles de botones de perlas, mangas 3/4, bolsillos y cinturón que ajusta la cintura, dando un look delicado y elegante.\n\nDisponible en color menta y negro.",
+        reel: "https://www.instagram.com/reel/DX5Mg-gOnuQ",
+        colores: [
+          { nombre: "Menta", hex: "#8FB6A1", imagenes: ["imagenes/Maxima dress verde.png"] },
+          { nombre: "Negro", hex: "#202020", imagenes: ["imagenes/Maxima dress negro.png"] }
+        ]
+      },
+      {
+        id: 8,
+        nombre: "Charlotte dress",
+        categoria: "vestidos",
+        precio: 96.00,
+        imagen: "imagenes/Charlotte dress.png",
+        esNewArrival: false,
+        descripcion: "Vestido de dos piezas de lino y algodón, corte asimétrico y detalles de vuelos. No es cualquier vuelo: está forrado con un material que le da cuerpo al detalle. La falda también es forrada, con vuelos que salen de la pretina y se abren en media pierna hasta abajo, dándole la vuelta a todo el vestido.",
+        reel: "https://www.instagram.com/reel/DUHUqdbjukA",
+        colores: []
+      },
+      {
+        id: 9,
+        nombre: "Leticia dress",
+        categoria: "vestidos",
+        precio: 64.00,
+        imagen: "imagenes/Leticia dress.png",
+        esNewArrival: false,
+        descripcion: "Vestido cruzado perfecto para ajustarlo a tu cuerpo, con detalles en las mangas que le dan un toque único, elegante y femenino.\n\nIdeal para eventos semiformales, fiestas de trabajo, reuniones entre amigas, fiestas familiares y esa fiestita para la que no sabes qué ponerte.",
+        reel: "https://www.instagram.com/reel/DSV6V5DjiHV",
+        colores: []
+      },
+      {
+        id: 10,
+        nombre: "Denim dress",
+        categoria: "vestidos",
+        precio: 96.00,
+        imagen: "imagenes/Denim Dress.png",
+        imagenes: ["imagenes/Denim Dress.png", "imagenes/Denim dress2.png"],
+        esNewArrival: false,
+        descripcion: "Vestido denim de dos piezas: camisa, falda amplia con bolsillos y cinturón. Un look de mezclilla completo, una tendencia clásica para todos los cuerpos y una pieza versátil y básica en tu armario.\n\nPuedes usarlo con distintas piezas y combinarlo con accesorios de muchos colores.",
+        reel: "https://www.instagram.com/reel/DJK2KRxxo56",
+        colores: []
+      },
+      {
+        id: 11,
+        nombre: "Helena dress",
+        categoria: "vestidos",
+        precio: 88.00,
+        imagen: "imagenes/Helena dress.png",
+        esNewArrival: false,
+        descripcion: "El color del año: blanco cálido y sutil, que evoca tranquilidad, paz y minimalismo.\n\nChaleco y falda en cortes amplios, con detalle de bolsillos en crepe suizo color Cloud Dancer. Lo hemos combinado con nuestro top spandex, perfecto para todo.",
+        reel: "https://www.instagram.com/reel/DUwSr-_jqql",
+        colores: []
+      },
+      {
+        id: 12,
+        nombre: "Milena dress",
+        categoria: "vestidos",
+        precio: 88.00,
+        imagen: "imagenes/Milena dress rojo.png",
+        esNewArrival: true,
+        ordenNew: 3,
+        descripcion: "Tres opciones de vestidos largos y fluidos one shoulder de dos piezas. Puede usarse junto o por separado; tiene dos vuelos que le dan mucho movimiento y una abertura espectacular, pero discreta, en la pierna.\n\nDisponible en palo de rosa, burdeos y negro.",
+        reel: "https://www.instagram.com/reel/DWm9y86OJ38",
+        colores: [
+          { nombre: "Burdeos", hex: "#7D1F2D", imagenes: ["imagenes/Milena dress rojo.png"] },
+          { nombre: "Negro", hex: "#202020", imagenes: ["imagenes/Milena dress negro.png"] },
+          { nombre: "Palo de rosa", hex: "#A58F89", imagenes: ["imagenes/Milena dress gris.png"] }
+        ]
+      },
+      {
+        id: 13,
+        nombre: "Alyssa dress",
+        categoria: "vestidos",
+        precio: 88.00,
+        imagen: "imagenes/Alyssa dress.png",
+        esNewArrival: false,
+        descripcion: "Vestido de dos piezas de lino y algodón, corte asimétrico y detalles de vuelos. El vuelo está forrado con un material que le da cuerpo al detalle, y la falda forrada tiene vuelos que salen de la pretina y se abren en media pierna hasta abajo, dándole la vuelta a todo el vestido.\n\nDisponible en rosado y verde.",
+        reel: "https://www.instagram.com/reel/DUHUqdbjukA",
+        colores: [
+          { nombre: "Rosado", hex: "#B66C75", imagenes: ["imagenes/Alyssa dress.png"] },
+          { nombre: "Verde", hex: "#668B6B", imagenes: ["imagenes/Alyssa dress verde.png"] }
+        ]
+      },
+      {
+        id: 14,
+        nombre: "Vestido de rayas",
+        categoria: "vestidos",
+        precio: 88.00,
+        imagen: "imagenes/Vestido rallado.png",
+        esNewArrival: true,
+        ordenNew: 2,
+        descripcion: "Vestido de dos piezas en lino y algodón, con camisa y falda de cortes asimétricos.",
+        reel: "https://www.instagram.com/reel/DYA46lAuVbW",
+        colores: []
+      },
+      {
+        id: 15,
+        nombre: "Emilia dress",
+        categoria: "vestidos",
+        precio: 88.00,
+        imagen: "imagenes/Emilia dress rojo.png",
+        esNewArrival: true,
+        ordenNew: 1,
+        descripcion: "Un mismo modelo de vestido, tres vibras completamente diferentes.\n\n❤️ Rojo para impactar en un evento de noche o cena especial.\n💚 Verde para un brunch o evento en el día.\n💙 Azul con beige para una reunión de negocios o tarde de cóctel elegante.\n\nEl corte halter con pretina estiliza a cualquiera, pero el estampado define tu mood.",
+        reel: "https://www.instagram.com/reel/DYk4sHKOark",
+        colores: [
+          { nombre: "Rojo", hex: "#A42B35", imagenes: ["imagenes/Emilia dress rojo.png"] },
+          { nombre: "Verde", hex: "#526B52", imagenes: ["imagenes/Emilia dress verde.png"] },
+          { nombre: "Azul", hex: "#405B80", imagenes: ["imagenes/Emilia dress azul.png"] }
+        ]
+      },
+      {
+        id: 16,
+        nombre: "Antonieta dress – Asimétrico",
+        categoria: "vestidos",
+        precio: 96.00,
+        imagen: "imagenes/Antonieta dress verde.png",
+        esNewArrival: false,
+        descripcion: "Vestido precioso de dos piezas con corte asimétrico de un hombro, manga larga y falda forrada de corte asimétrico con dos vuelos que le dan cuerpo y movimiento.\n\nIdeal para matrimonios de día o tarde-noche, fiestas y eventos.\n\nDisponible en verde agua y rosado.",
+        reel: "https://www.instagram.com/reel/DQptmQlDoqY",
+        colores: [
+          { nombre: "Verde agua", hex: "#9DB8A3", imagenes: ["imagenes/Antonieta dress verde.png"] },
+          { nombre: "Rosado", hex: "#C98D9A", imagenes: ["imagenes/Antonieta dress rosado.png"] }
+        ]
+      },
+      {
+        id: 17,
+        nombre: "Azucena dress",
+        categoria: "vestidos",
+        precio: 88.00,
+        imagen: "imagenes/Azucena dress.png",
+        esNewArrival: true,
+        ordenNew: 4,
+        descripcion: "Look semiformal para un evento, ceremonia o matrimonio de día.\n\nVestido cruzado perfecto para todo tipo de cuerpo: asentador, divino y elegante, con una tela espectacular, detalles de alta costura, sin costuras visibles y falda forrada.",
+        reel: "https://www.instagram.com/reel/DWfHFPeOSXd",
+        colores: []
+      },
+      {
+        id: 18,
+        nombre: "Amira dress",
+        categoria: "vestidos",
+        precio: 88.00,
+        imagen: "imagenes/Amira dress.png",
+        esNewArrival: false,
+        descripcion: "Vestido divino de dos piezas en seda, con corte asimétrico, falda forrada y dos vuelos en la parte inferior que le dan movimiento.\n\nPerfecto para invitada de graduación, boda de día o tarde-noche y eventos formales.",
+        reel: "https://www.instagram.com/reel/DTd7GQyjsld",
+        colores: []
+      },
+      {
+        id: 19,
+        nombre: "Marcia set",
+        categoria: "conjuntos",
+        precio: 88.00,
+        imagen: "imagenes/Marcia set azul.png",
+        esNewArrival: false,
+        descripcion: "Set de dos piezas en seda con detalles de bolsillos y pretina alta.\n\nDisponible en azul rey y lila.",
+        reel: "https://www.instagram.com/reel/DCfcleQRF8v",
+        colores: [
+          { nombre: "Azul rey", hex: "#355AA8", imagenes: ["imagenes/Marcia set azul.png"] },
+          { nombre: "Lila", hex: "#A783B8", imagenes: ["imagenes/Marcia set lila.png"] }
+        ]
+      },
+      {
+        id: 20,
+        nombre: "Antonieta dress – Corset",
+        categoria: "vestidos",
+        precio: 96.00,
+        imagen: "imagenes/Antonieta dress.png",
+        esNewArrival: false,
+        descripcion: "Vestido corset de dos piezas.\n\nUna de las formas más elegantes de elevar los looks son los vestidos corseteros. Este diseño presenta una silueta definida, hombros descubiertos y detalles de vuelos.\n\nPuedes usarlo en total look o combinar sus piezas para conseguir distintos outfits divinos y elegantes. Se adapta a códigos de vestimenta desde semiformal hasta bodas formales.",
+        reel: "https://www.instagram.com/reel/C2a6rNPrNWo",
+        colores: []
+      },
+      {
+        id: 21,
+        nombre: "Marina set",
+        categoria: "conjuntos",
+        precio: 88.00,
+        imagen: "imagenes/Marina set.png",
+        esNewArrival: false,
+        descripcion: "Un diseño versátil que permite usar cuatro estilos diferentes en un mismo set.\n\nUn conjunto espectacular de tres piezas: pantalón a la cintura con bolsillos y sin pinzas, top con corte bretel y elásticos posteriores, y blusa en puntas para usarla de cuatro formas.\n\nDisponible en morado intenso y azul rey.",
+        reel: "https://www.instagram.com/reel/C-qojmmRizV",
+        colores: [
+          { nombre: "Morado intenso", hex: "#653F78", imagenes: ["imagenes/Marina set.png"] },
+          { nombre: "Azul rey", hex: "#355AA8", imagenes: ["imagenes/Marina set azul.png"] }
+        ]
+      },
+      {
+        id: 22,
+        nombre: "Conjunto de rayas",
+        categoria: "conjuntos",
+        precio: 88.00,
+        imagen: "imagenes/Conjunto rallado.png",
+        esNewArrival: false,
+        descripcion: "Conjunto de dos piezas en lino y algodón, compuesto por camisa y pantalón palazzo de rayas. Una opción fresca y versátil para looks casuales o semiformales.",
+        reel: "https://www.instagram.com/reel/DYA46lAuVbW",
+        colores: []
+      }
     ];
 
     /* RENDER DE TARJETAS */
@@ -1188,7 +1443,10 @@
     }
 
     function cargarProductos() {
-      const newArrivals = productos.filter(p => p.esNewArrival).slice(0, 6);
+      const newArrivals = productos
+        .filter(p => p.esNewArrival)
+        .sort((a, b) => a.ordenNew - b.ordenNew)
+        .slice(0, 6);
       document.getElementById('new-arrivals-grid').innerHTML = newArrivals.map(p => crearTarjetaProducto(p)).join('');
 
       const vestidos = productos.filter(p => p.categoria === 'vestidos');
@@ -1247,32 +1505,36 @@
         activeImages = product.colores[0].imagenes;
       } else {
         colorsWrap.style.display = 'none';
-        activeImages = [product.imagen];
-      }
-
-      // Ocultar flechas de cambio de imagen en vestidos y conjuntos
-      const navArrows = document.querySelectorAll('.nav-arrow');
-      if (product.categoria === 'vestidos' || product.categoria === 'conjuntos') {
-        navArrows.forEach(arrow => arrow.style.display = 'none');
-      } else {
-        navArrows.forEach(arrow => arrow.style.display = 'flex');
+        activeImages = product.imagenes || [product.imagen];
       }
 
       currentImageIndex = 0;
+      updateImageNavigation();
       updateModalImage();
 
       // Reel de Instagram integrado
       const reelBox = document.getElementById('modal-reel-box');
-      if (product.categoria === 'vestidos' || product.tieneReel) {
+      const reelContainer = document.getElementById('modal-reel-container');
+      if (product.reel) {
         reelBox.style.display = 'block';
-        if (window.instgrm) {
-          window.instgrm.Embeds.process();
-        }
+        const reelPermalink = `${product.reel}/?utm_source=ig_embed&utm_campaign=loading`;
+        reelContainer.innerHTML = `
+          <blockquote class="instagram-media"
+            data-instgrm-permalink="${reelPermalink}"
+            data-instgrm-version="14"
+            style="background:#fff; border:0; margin:0; max-width:540px; min-width:0; padding:0; width:100%;">
+            <a href="${product.reel}/" target="_blank" rel="noopener noreferrer">Ver este modelo en Instagram</a>
+          </blockquote>`;
+        window.setTimeout(() => {
+          if (window.instgrm) window.instgrm.Embeds.process();
+        }, 0);
       } else {
         reelBox.style.display = 'none';
+        reelContainer.innerHTML = '';
       }
 
       document.getElementById('product-modal').classList.add('active');
+      document.body.classList.add('modal-open');
     }
 
     function selectColor(productId, colorIndex, swatchElem) {
@@ -1282,7 +1544,13 @@
       const product = productos.find(p => p.id === productId);
       activeImages = product.colores[colorIndex].imagenes;
       currentImageIndex = 0;
+      updateImageNavigation();
       updateModalImage();
+    }
+
+    function updateImageNavigation() {
+      const display = activeImages.length > 1 ? 'flex' : 'none';
+      document.querySelectorAll('.nav-arrow').forEach(arrow => arrow.style.display = display);
     }
 
     function navigateImage(direction) {
@@ -1297,6 +1565,7 @@
 
     function closeModal() {
       document.getElementById('product-modal').classList.remove('active');
+      document.body.classList.remove('modal-open');
     }
 
     function closeModalOnOuterClick(event) {
