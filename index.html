@@ -102,13 +102,17 @@
     }
 
     .logo {
-      font-family: var(--font-nav);
-      font-size: 1.8rem;
-      font-weight: 700;
-      letter-spacing: 1px;
-      color: #000000;
-      text-transform: uppercase;
-      white-space: nowrap;
+      display: block;
+      flex-shrink: 0;
+      line-height: 0;
+    }
+
+    .header-logo-img {
+      display: block;
+      width: clamp(210px, 24vw, 300px);
+      height: 52px;
+      object-fit: contain;
+      object-position: left center;
     }
 
     nav ul {
@@ -415,6 +419,20 @@
       gap: 15px;
     }
 
+    .modal-wa-btn {
+      text-align: center;
+      width: 100%;
+    }
+
+    .modal-wa-desktop {
+      display: block;
+    }
+
+    .modal-wa-mobile {
+      display: none;
+      margin: 5px 0 20px;
+    }
+
     .main-img-wrap {
       position: relative;
       width: 100%;
@@ -429,6 +447,17 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .main-img-wrap.swipe-enabled {
+      cursor: grab;
+      touch-action: pan-y;
+    }
+
+    .main-img-wrap.swipe-enabled:active {
+      cursor: grabbing;
     }
 
     .nav-arrow {
@@ -471,6 +500,7 @@
     .swatch {
       width: 32px;
       height: 32px;
+      padding: 0;
       border-radius: 50%;
       border: 2px solid #ccc;
       cursor: pointer;
@@ -576,11 +606,15 @@
     }
 
     .footer-logo {
-      font-family: var(--font-nav);
-      font-size: 2rem;
-      color: var(--white);
+      display: inline-block;
+      line-height: 0;
       margin-bottom: 15px;
-      text-transform: uppercase;
+    }
+
+    .footer-logo img {
+      display: block;
+      width: min(290px, 100%);
+      height: auto;
     }
 
     .footer-about p {
@@ -719,12 +753,24 @@
       .modal-body {
         grid-template-columns: 1fr;
       }
+
+      .modal-wa-desktop {
+        display: none;
+      }
+
+      .modal-wa-mobile {
+        display: block;
+      }
     }
 
     @media (max-width: 768px) {
       .logo {
-        font-size: 1.3rem;
-        letter-spacing: 0.5px;
+        max-width: calc(100vw - 105px);
+      }
+
+      .header-logo-img {
+        width: min(230px, 100%);
+        height: 44px;
       }
 
       nav {
@@ -826,7 +872,7 @@
 
   <!-- BARRA DE ANUNCIO SUPERIOR -->
   <div class="top-bar">
-    <p><i class="fa-solid fa-truck-fast"></i> Envíos a todo el Ecuador | María Bonita Boutique</p>
+    <p><i class="fa-solid fa-truck-fast"></i> Envíos a todo el Ecuador | María Bonita</p>
   </div>
 
   <!-- HEADER CON LOGO Y NAVEGACIÓN -->
@@ -834,7 +880,7 @@
     <div class="container header-container">
       <div class="logo-container">
         <a href="#" onclick="showSection('inicio'); return false;" class="logo">
-          MARÍA BONITA
+          <img src="Imagenes/Diseños/Logo y variante Maria Bonita-14.png" alt="María Bonita — Diseños Exclusivos" class="header-logo-img">
         </a>
       </div>
 
@@ -1045,9 +1091,12 @@
         <div class="modal-gallery">
           <div class="main-img-wrap">
             <button class="nav-arrow prev" onclick="navigateImage(-1)"><i class="fa-solid fa-chevron-left"></i></button>
-            <img id="modal-main-img" src="" alt="Producto">
+            <img id="modal-main-img" src="" alt="Producto" draggable="false">
             <button class="nav-arrow next" onclick="navigateImage(1)"><i class="fa-solid fa-chevron-right"></i></button>
           </div>
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn-primary modal-wa-btn modal-wa-desktop">
+            <i class="fa-brands fa-whatsapp"></i> Consultar Disponibilidad
+          </a>
         </div>
 
         <!-- Información detallada del producto -->
@@ -1062,6 +1111,10 @@
             <div id="modal-swatches" class="color-swatches"></div>
           </div>
 
+          <a href="#" target="_blank" rel="noopener noreferrer" class="btn-primary modal-wa-btn modal-wa-mobile">
+            <i class="fa-brands fa-whatsapp"></i> Consultar Disponibilidad
+          </a>
+
           <!-- Instagram Reel Integrado en Modal -->
           <div id="modal-reel-box" class="reel-box" style="display: none;">
             <h4><i class="fa-brands fa-instagram"></i> Ver este modelo en Instagram Reel</h4>
@@ -1070,10 +1123,6 @@
             </div>
           </div>
 
-          <!-- Botón directo WhatsApp -->
-          <a id="modal-wa-btn" href="#" target="_blank" class="btn-primary" style="display: block; text-align: center; margin-top: 25px;">
-            <i class="fa-brands fa-whatsapp"></i> Consultar Disponibilidad
-          </a>
         </div>
 
       </div>
@@ -1090,7 +1139,9 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-about">
-          <div class="footer-logo">MARÍA BONITA</div>
+          <a href="#" onclick="showSection('inicio'); return false;" class="footer-logo" aria-label="Volver al inicio">
+            <img src="Imagenes/Diseños/Logo y variante Maria Bonita-17.png" alt="María Bonita — Diseños Exclusivos">
+          </a>
           <p>Diseños 100% originales, creados y confeccionados por talentosas manos ecuatorianas. Envíos a todo el Ecuador.</p>
           <div class="social-links">
             <a href="https://www.instagram.com/maria_bonitaec?utm_source=ig_web_button_share_sheet&amp;igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" aria-label="Instagram de María Bonita"><i class="fa-brands fa-instagram"></i></a>
@@ -1182,12 +1233,11 @@
         nombre: "Catalina dress",
         categoria: "vestidos",
         precio: 88.00,
-        imagen: "Imagenes/Catalina dress.png",
+        imagen: "Imagenes/Catalina dress rosado.png",
         esNewArrival: false,
-        descripcion: "Vestido de lino de dos piezas, top forrado con cierre posterior y falda amplia con bolsillos y cinturón.\n\nDisponible en rosado, negro, blanco y beige.",
+        descripcion: "Vestido de lino de dos piezas, top forrado con cierre posterior y falda amplia con bolsillos y cinturón.\n\nDisponible en rosado, negro y blanco.",
         reel: "https://www.instagram.com/reel/DKstMiuM3AJ",
         colores: [
-          { nombre: "Beige", hex: "#D7C2A6", imagenes: ["Imagenes/Catalina dress.png"] },
           { nombre: "Rosado", hex: "#D99AA5", imagenes: ["Imagenes/Catalina dress rosado.png"] },
           { nombre: "Negro", hex: "#202020", imagenes: ["Imagenes/Catalina dress negro.png"] },
           { nombre: "Blanco", hex: "#FFFFFF", imagenes: ["Imagenes/Catalina dress blanco.png"] }
@@ -1479,10 +1529,15 @@
     /* ESTADO DE GALERÍA DE IMÁGENES EN EL MODAL */
     let activeImages = [];
     let currentImageIndex = 0;
+    let activeProduct = null;
+    let activeColorIndex = -1;
+    let swipeStartX = null;
+    let swipeStartY = null;
 
     function openModal(id) {
       const product = productos.find(p => p.id === id);
       if(!product) return;
+      activeProduct = product;
 
       document.getElementById('modal-title').textContent = product.nombre;
       document.getElementById('modal-price').textContent = `$${product.precio.toFixed(2)}`;
@@ -1490,7 +1545,9 @@
 
       // Link WhatsApp
       const mensaje = encodeURIComponent(`Hola María Bonita, me interesa consultar el producto: "${product.nombre}" ($${product.precio.toFixed(2)})`);
-      document.getElementById('modal-wa-btn').href = `https://wa.me/${WHATSAPP_NUMBER}?text=${mensaje}`;
+      document.querySelectorAll('.modal-wa-btn').forEach(button => {
+        button.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${mensaje}`;
+      });
 
       // Configuración de Colores e Imágenes
       const colorsWrap = document.getElementById('modal-colors-wrap');
@@ -1499,17 +1556,23 @@
       if (product.colores && product.colores.length > 0) {
         colorsWrap.style.display = 'block';
         swatchesContainer.innerHTML = product.colores.map((c, index) => `
-          <div class="swatch ${index === 0 ? 'active' : ''}" 
+          <button type="button" class="swatch ${index === 0 ? 'active' : ''}"
                style="background-color: ${c.hex};" 
                title="${c.nombre}" 
-               onclick="selectColor(${product.id}, ${index}, this)"></div>
+               aria-label="Ver ${product.nombre} en color ${c.nombre}"
+               aria-pressed="${index === 0}"
+               onclick="selectColor(${product.id}, ${index})"></button>
         `).join('');
 
+        activeColorIndex = 0;
         activeImages = product.colores[0].imagenes;
       } else {
         colorsWrap.style.display = 'none';
+        activeColorIndex = -1;
         activeImages = product.imagenes || [product.imagen];
       }
+
+      document.querySelector('.main-img-wrap').classList.toggle('swipe-enabled', canNavigateColorVariants());
 
       currentImageIndex = 0;
       updateImageNavigation();
@@ -1540,26 +1603,71 @@
       document.body.classList.add('modal-open');
     }
 
-    function selectColor(productId, colorIndex, swatchElem) {
-      document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
-      swatchElem.classList.add('active');
-
+    function selectColor(productId, colorIndex) {
       const product = productos.find(p => p.id === productId);
+      if (!product || !product.colores[colorIndex]) return;
+
+      activeProduct = product;
+      activeColorIndex = colorIndex;
       activeImages = product.colores[colorIndex].imagenes;
       currentImageIndex = 0;
+      updateSwatchSelection();
       updateImageNavigation();
       updateModalImage();
     }
 
+    function canNavigateColorVariants() {
+      return activeProduct?.categoria === 'vestidos' && activeProduct.colores?.length > 1;
+    }
+
+    function updateSwatchSelection() {
+      document.querySelectorAll('#modal-swatches .swatch').forEach((swatch, index) => {
+        const isActive = index === activeColorIndex;
+        swatch.classList.toggle('active', isActive);
+        swatch.setAttribute('aria-pressed', String(isActive));
+      });
+    }
+
     function updateImageNavigation() {
-      const display = activeImages.length > 1 ? 'flex' : 'none';
+      const display = (canNavigateColorVariants() || activeImages.length > 1) ? 'flex' : 'none';
       document.querySelectorAll('.nav-arrow').forEach(arrow => arrow.style.display = display);
     }
 
     function navigateImage(direction) {
+      if (canNavigateColorVariants()) {
+        const nextColorIndex = (activeColorIndex + direction + activeProduct.colores.length) % activeProduct.colores.length;
+        selectColor(activeProduct.id, nextColorIndex);
+        return;
+      }
+
       if(activeImages.length <= 1) return;
       currentImageIndex = (currentImageIndex + direction + activeImages.length) % activeImages.length;
       updateModalImage();
+    }
+
+    function startImageSwipe(event) {
+      if (!canNavigateColorVariants() || event.target.closest('.nav-arrow')) return;
+      swipeStartX = event.clientX;
+      swipeStartY = event.clientY;
+      event.currentTarget.setPointerCapture?.(event.pointerId);
+    }
+
+    function endImageSwipe(event) {
+      if (swipeStartX === null || swipeStartY === null) return;
+
+      const deltaX = event.clientX - swipeStartX;
+      const deltaY = event.clientY - swipeStartY;
+      swipeStartX = null;
+      swipeStartY = null;
+
+      if (Math.abs(deltaX) >= 45 && Math.abs(deltaX) > Math.abs(deltaY)) {
+        navigateImage(deltaX < 0 ? 1 : -1);
+      }
+    }
+
+    function cancelImageSwipe() {
+      swipeStartX = null;
+      swipeStartY = null;
     }
 
     function updateModalImage() {
@@ -1607,6 +1715,10 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       cargarProductos();
+      const imageWrap = document.querySelector('.main-img-wrap');
+      imageWrap.addEventListener('pointerdown', startImageSwipe);
+      imageWrap.addEventListener('pointerup', endImageSwipe);
+      imageWrap.addEventListener('pointercancel', cancelImageSwipe);
     });
   </script>
 </body>
