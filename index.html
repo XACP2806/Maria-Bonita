@@ -154,14 +154,14 @@
     }
 
     /* ===================================================
-       4. HERO BANNER DE IMAGEN (EFECTO SCROLL)
+       4. HERO BANNER DE IMAGEN
        =================================================== */
     .hero-container {
       width: 100%;
       height: 450px;
       overflow: hidden;
       margin-bottom: 40px;
-      background-color: #000;
+      background-color: #f4ece7;
       position: relative;
     }
 
@@ -169,8 +169,8 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: clip-path 0.1s linear;
-      clip-path: inset(0% 0% 0% 0%);
+      object-position: center;
+      display: block;
     }
 
     /* ===================================================
@@ -764,6 +764,15 @@
     }
 
     @media (max-width: 768px) {
+      .hero-container {
+        height: clamp(260px, 72vw, 340px);
+        margin-bottom: 30px;
+      }
+
+      .hero-img {
+        object-position: left center;
+      }
+
       .logo {
         max-width: calc(100vw - 105px);
       }
@@ -905,9 +914,9 @@
        =================================================== -->
   <section id="inicio" class="page-section active">
     
-    <!-- BANNER HERO SOLO IMAGEN CON EFECTO DE CIERRE EN SCROLL -->
+    <!-- BANNER PRINCIPAL DE LA NUEVA COLECCIÓN -->
     <div class="hero-container">
-      <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1600&q=80" alt="Banner Principal" id="hero-banner" class="hero-img">
+      <img src="Imagenes/banner.png" alt="Nueva colección de María Bonita" id="hero-banner" class="hero-img" fetchpriority="high">
     </div>
 
     <div class="container">
@@ -1646,8 +1655,8 @@
       descriptionElement.textContent = product.descripcion || "";
       descriptionElement.style.display = product.descripcion ? 'block' : 'none';
 
-      // Link WhatsApp
-      const mensaje = encodeURIComponent(`Hola María Bonita, me interesa consultar el producto: "${product.nombre}" ($${product.precio.toFixed(2)})`);
+      // Link de WhatsApp personalizado para cada prenda
+      const mensaje = encodeURIComponent(`Hola! estoy interesada en esta prenda: *${product.nombre}*, podria darme mas informacion por favor.`);
       document.querySelectorAll('.modal-wa-btn').forEach(button => {
         button.href = `https://wa.me/${WHATSAPP_NUMBER}?text=${mensaje}`;
       });
@@ -1787,16 +1796,6 @@
         closeModal();
       }
     }
-
-    /* EFECTO SCROLL EN BANNER HERO DE INICIO */
-    window.addEventListener('scroll', () => {
-      const banner = document.getElementById('hero-banner');
-      if (banner) {
-        const scrolled = window.scrollY;
-        const insetVal = Math.min(25, scrolled / 20); 
-        banner.style.clipPath = `inset(${insetVal}% ${insetVal}%)`;
-      }
-    });
 
     /* NAVEGACIÓN Y MENÚ MÓVIL */
     function showSection(sectionId) {
