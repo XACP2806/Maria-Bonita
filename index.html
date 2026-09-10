@@ -1062,9 +1062,9 @@
       </div>
 
       <div class="filter-bar">
-        <button class="filter-btn active" onclick="filterCatalog('todos', this)">Todos (29)</button>
-        <button class="filter-btn" onclick="filterCatalog('vestidos', this)">Vestidos (22)</button>
-        <button class="filter-btn" onclick="filterCatalog('conjuntos', this)">Conjuntos (7)</button>
+        <button id="filter-todos" class="filter-btn active" onclick="filterCatalog('todos', this)"></button>
+        <button id="filter-vestidos" class="filter-btn" onclick="filterCatalog('vestidos', this)"></button>
+        <button id="filter-conjuntos" class="filter-btn" onclick="filterCatalog('conjuntos', this)"></button>
       </div>
 
       <div class="products-grid" id="vertodo-grid">
@@ -1703,6 +1703,10 @@
 
       const conjuntos = productos.filter(p => p.categoria === 'conjuntos');
       document.getElementById('conjuntos-grid').innerHTML = conjuntos.map(p => crearTarjetaProducto(p)).join('');
+
+      document.getElementById('filter-todos').textContent = `Todos (${productos.length})`;
+      document.getElementById('filter-vestidos').textContent = `Vestidos (${vestidos.length})`;
+      document.getElementById('filter-conjuntos').textContent = `Conjuntos (${conjuntos.length})`;
 
       renderVerTodo(productos);
     }
