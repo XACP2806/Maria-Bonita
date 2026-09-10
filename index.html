@@ -1294,7 +1294,7 @@
         precio: 88.00,
         imagen: "Imagenes/Rafaela dress nueva.png",
         esNewArrival: true,
-        ordenNew: 5,
+        ordenNew: 7,
         descripcion: "",
         reel: "https://www.instagram.com/reel/DbJgmPaRbrX",
         colores: []
@@ -1504,7 +1504,7 @@
         id: 21,
         nombre: "Marina set",
         categoria: "conjuntos",
-        precio: 88.00,
+        precio: 96.00,
         imagen: "Imagenes/Marina set.png",
         esNewArrival: false,
         descripcion: "Un diseño versátil que permite usar cuatro estilos diferentes en un mismo set.\n\nUn conjunto espectacular de tres piezas: pantalón a la cintura con bolsillos y sin pinzas, top con corte bretel y elásticos posteriores, y blusa en puntas para usarla de cuatro formas.\n\nDisponible en morado intenso y azul rey.",
@@ -1532,7 +1532,7 @@
         precio: 54.00,
         imagen: "Imagenes/Top Camila.png",
         esNewArrival: true,
-        ordenNew: 1,
+        ordenNew: 3,
         descripcion: "",
         reel: "https://www.instagram.com/reel/DbCJ6ieuKJM",
         colores: []
@@ -1544,7 +1544,7 @@
         precio: 88.00,
         imagen: "Imagenes/Olivia dress (sin manga) gris.png",
         esNewArrival: true,
-        ordenNew: 2,
+        ordenNew: 4,
         descripcion: "",
         reel: "https://www.instagram.com/reel/DbJgmPaRbrX",
         colores: [
@@ -1560,7 +1560,7 @@
         precio: 88.00,
         imagen: "Imagenes/Domenica dress rosado.png",
         esNewArrival: true,
-        ordenNew: 3,
+        ordenNew: 5,
         descripcion: "",
         reel: "https://www.instagram.com/reel/DbJgmPaRbrX",
         colores: [
@@ -1576,7 +1576,7 @@
         precio: 88.00,
         imagen: "Imagenes/Olivia dress (con manga) verde.png",
         esNewArrival: true,
-        ordenNew: 4,
+        ordenNew: 6,
         descripcion: "",
         reel: "https://www.instagram.com/reel/DbWulmXuvMZ",
         colores: [
@@ -1592,7 +1592,7 @@
         precio: 88.00,
         imagen: "Imagenes/Anastasia dress lila.png",
         esNewArrival: true,
-        ordenNew: 6,
+        ordenNew: 8,
         descripcion: "",
         reel: "https://www.instagram.com/reel/DbJgmPaRbrX",
         colores: [
@@ -1609,7 +1609,7 @@
         precio: 88.00,
         imagen: "Imagenes/Nuevo Máxima dress (largo) azul.png",
         esNewArrival: true,
-        ordenNew: 7,
+        ordenNew: 9,
         descripcion: "",
         reel: "https://www.instagram.com/reel/DbRX_4XRFwB",
         colores: [
@@ -1624,13 +1624,37 @@
         precio: 64.00,
         imagen: "Imagenes/Nuevo Máxima dress (corto) beige.png",
         esNewArrival: true,
-        ordenNew: 8,
+        ordenNew: 10,
         descripcion: "",
         reel: "https://www.instagram.com/reel/DbRX_4XRFwB",
         colores: [
           { nombre: "Beige", hex: "#C8B3AA", imagenes: ["Imagenes/Nuevo Máxima dress (corto) beige.png"] },
           { nombre: "Azul", hex: "#6494D8", imagenes: ["Imagenes/Nuevo Máxima dress (corto) azul.png"] }
         ]
+      },
+      {
+        id: 30,
+        nombre: "Stella Set con flecos",
+        categoria: "conjuntos",
+        precio: 96.00,
+        imagen: "Imagenes/Stella Set con flecos.png",
+        esNewArrival: true,
+        ordenNew: 1,
+        descripcion: "",
+        reel: "https://www.instagram.com/reel/DdFVsM-ufj3",
+        colores: []
+      },
+      {
+        id: 31,
+        nombre: "Stella Set sin flecos",
+        categoria: "conjuntos",
+        precio: 88.00,
+        imagen: "Imagenes/Stella Set sin flecos.png",
+        esNewArrival: true,
+        ordenNew: 2,
+        descripcion: "",
+        reel: "https://www.instagram.com/reel/DdFVsM-ufj3",
+        colores: []
       }
     ];
 
@@ -1746,7 +1770,7 @@
         activeImages = product.imagenes || [product.imagen];
       }
 
-      document.querySelector('.main-img-wrap').classList.toggle('swipe-enabled', canNavigateColorVariants());
+      document.querySelector('.main-img-wrap').classList.toggle('swipe-enabled', canNavigateGallery());
 
       currentImageIndex = 0;
       updateImageNavigation();
@@ -1791,7 +1815,11 @@
     }
 
     function canNavigateColorVariants() {
-      return activeProduct?.categoria === 'vestidos' && activeProduct.colores?.length > 1;
+      return activeProduct?.colores?.length > 1;
+    }
+
+    function canNavigateGallery() {
+      return canNavigateColorVariants() || activeImages.length > 1;
     }
 
     function updateSwatchSelection() {
@@ -1803,7 +1831,7 @@
     }
 
     function updateImageNavigation() {
-      const display = (canNavigateColorVariants() || activeImages.length > 1) ? 'flex' : 'none';
+      const display = canNavigateGallery() ? 'flex' : 'none';
       document.querySelectorAll('.nav-arrow').forEach(arrow => arrow.style.display = display);
     }
 
@@ -1820,7 +1848,7 @@
     }
 
     function startImageSwipe(event) {
-      if (!canNavigateColorVariants() || event.target.closest('.nav-arrow')) return;
+      if (!canNavigateGallery() || event.target.closest('.nav-arrow')) return;
       swipeStartX = event.clientX;
       swipeStartY = event.clientY;
       event.currentTarget.setPointerCapture?.(event.pointerId);
