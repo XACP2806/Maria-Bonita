@@ -1441,14 +1441,18 @@
       },
       {
         id: 16,
-        nombre: "Antonieta dress – Asimétrico",
+        nombre: "Antonieta dress",
         categoria: "vestidos",
         precio: 96.00,
-        imagen: "Imagenes/Antonieta dress verde.png",
-        esNewArrival: false,
-        descripcion: "Vestido precioso de dos piezas con corte asimétrico de un hombro, manga larga y falda forrada de corte asimétrico con dos vuelos que le dan cuerpo y movimiento.\n\nIdeal para matrimonios de día o tarde-noche, fiestas y eventos.\n\nDisponible en verde agua y rosado.",
+        imagen: "Imagenes/Antonieta dress negro crema.png",
+        esNewArrival: true,
+        ordenNew: 12,
+        etiquetaNew: "New Colors",
+        descripcion: "Vestido precioso de dos piezas con corte asimétrico de un hombro, manga larga y falda forrada de corte asimétrico con dos vuelos que le dan cuerpo y movimiento.\n\nIdeal para matrimonios de día o tarde-noche, fiestas y eventos.",
         reel: "https://www.instagram.com/reel/DQptmQlDoqY",
         colores: [
+          { nombre: "Negro y crema", hex: "#202020", imagenes: ["Imagenes/Antonieta dress negro crema.png"] },
+          { nombre: "Vino y crema", hex: "#822B35", imagenes: ["Imagenes/Antonieta dress vino crema.png"] },
           { nombre: "Verde agua", hex: "#9DB8A3", imagenes: ["Imagenes/Antonieta dress verde.png"] },
           { nombre: "Rosado", hex: "#C98D9A", imagenes: ["Imagenes/Antonieta dress rosado.png"] }
         ]
@@ -1709,7 +1713,7 @@
 
       return `
         <div class="product-card" onclick="openModal(${p.id})">
-          ${p.esNewArrival ? '<span class="product-badge">New</span>' : ''}
+          ${p.esNewArrival ? `<span class="product-badge">${p.etiquetaNew || 'New'}</span>` : ''}
           <div class="product-img-wrap">
             <img src="${p.imagen}" alt="${p.nombre}" loading="lazy">
           </div>
