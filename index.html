@@ -886,6 +886,16 @@
         gap: 12px;
       }
 
+      .product-badge--colors {
+        top: 8px;
+        left: 8px;
+        max-width: calc(100% - 16px);
+        padding: 4px 7px;
+        font-size: 0.62rem;
+        letter-spacing: 0.2px;
+        white-space: nowrap;
+      }
+
       .product-info {
         padding: 12px;
       }
@@ -1444,17 +1454,17 @@
         nombre: "Antonieta dress",
         categoria: "vestidos",
         precio: 96.00,
-        imagen: "Imagenes/Antonieta dress negro crema.png",
+        imagen: "Imagenes/Antonieta dress verde.png",
         esNewArrival: true,
         ordenNew: 12,
         etiquetaNew: "New Colors",
         descripcion: "Vestido precioso de dos piezas con corte asimétrico de un hombro, manga larga y falda forrada de corte asimétrico con dos vuelos que le dan cuerpo y movimiento.\n\nIdeal para matrimonios de día o tarde-noche, fiestas y eventos.",
         reel: "https://www.instagram.com/reel/DQptmQlDoqY",
         colores: [
-          { nombre: "Negro y crema", hex: "#202020", imagenes: ["Imagenes/Antonieta dress negro crema.png"] },
-          { nombre: "Vino y crema", hex: "#822B35", imagenes: ["Imagenes/Antonieta dress vino crema.png"] },
           { nombre: "Verde agua", hex: "#9DB8A3", imagenes: ["Imagenes/Antonieta dress verde.png"] },
-          { nombre: "Rosado", hex: "#C98D9A", imagenes: ["Imagenes/Antonieta dress rosado.png"] }
+          { nombre: "Rosado", hex: "#C98D9A", imagenes: ["Imagenes/Antonieta dress rosado.png"] },
+          { nombre: "Negro y crema", hex: "#202020", imagenes: ["Imagenes/Antonieta dress negro crema.png"] },
+          { nombre: "Vino y crema", hex: "#822B35", imagenes: ["Imagenes/Antonieta dress vino crema.png"] }
         ]
       },
       {
@@ -1641,14 +1651,14 @@
         nombre: "Blusa Stella flecos",
         categoria: "conjuntos",
         precio: 48.00,
-        imagen: "Imagenes/Blusa Stella flecos blanco.png",
+        imagen: "Imagenes/Blusa Stella flecos blanco.png?v=20260917-2",
         esNewArrival: true,
         ordenNew: 1,
         descripcion: "",
         reel: "https://www.instagram.com/reel/DdKLfhBxAwn",
         colores: [
-          { nombre: "Blanco", hex: "#F7F4EE", imagenes: ["Imagenes/Blusa Stella flecos blanco.png"] },
-          { nombre: "Estampado", hex: "#242424", imagenes: ["Imagenes/Blusa Stella flecos estampado.png"] },
+          { nombre: "Blanco", hex: "#F7F4EE", imagenes: ["Imagenes/Blusa Stella flecos blanco.png?v=20260917-2"] },
+          { nombre: "Estampado", hex: "#242424", imagenes: ["Imagenes/Blusa Stella flecos estampado.png?v=20260917-2"] },
           { nombre: "Negro", hex: "#111111", imagenes: ["Imagenes/Blusa Stella flecos negro.png"] }
         ]
       },
@@ -1713,7 +1723,7 @@
 
       return `
         <div class="product-card" onclick="openModal(${p.id})">
-          ${p.esNewArrival ? `<span class="product-badge">${p.etiquetaNew || 'New'}</span>` : ''}
+          ${p.esNewArrival ? `<span class="product-badge${p.etiquetaNew ? ' product-badge--colors' : ''}">${p.etiquetaNew || 'New'}</span>` : ''}
           <div class="product-img-wrap">
             <img src="${p.imagen}" alt="${p.nombre}" loading="lazy">
           </div>
