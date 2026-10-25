@@ -16,7 +16,8 @@ Abrir `http://127.0.0.1:8766/bm/` en la misma computadora. Para simular teléfon
 
 - Instagram y el chat de disponibilidad están configurados en `catalogo.js`.
 - TikTok permanece oculto mientras `tiktok` esté vacío; al añadir la URL aparece automáticamente.
-- Cada producto incluye frente, espalda y modelo, en ese orden. Se pueden añadir más fotografías al arreglo `images`; las miniaturas y controles se generan automáticamente.
+- Cada producto incluye frente, modelo y espalda, en ese orden. Se pueden añadir más fotografías al arreglo `images`; las miniaturas y controles se generan automáticamente.
+- En teléfono, deslizar horizontalmente sobre la foto cambia de imagen; el desplazamiento vertical y el zoom táctil se mantienen. En computadora hay flechas laterales. También se puede navegar con miniaturas o con las flechas del teclado cuando la galería tiene el foco.
 
 La portada y las cuatro columnas de escritorio también se usan en horizontal. En teléfonos verticales de hasta 767 px se usa la portada vertical y dos columnas. Las fichas se abren en un diálogo dentro de la misma página y admiten Escape y el botón Atrás del navegador.
 

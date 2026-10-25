@@ -31,8 +31,9 @@
         <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu"><span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span></button>
         <div class="mobile-menu" id="mobile-menu" hidden>
           <p class="menu-heading">EXPLORA bM</p>
-          <a href="#drop-001"><span>Prendas<small>Descubre Drop 001</small></span><span class="menu-arrow" aria-hidden="true">↗</span></a>
-          <a href="#redes"><span>Redes<small>Síguenos</small></span><span class="menu-arrow" aria-hidden="true">↗</span></a>
+          <a href="#drop-001"><span>Prendas<small>Descubre Drop 001</small></span></a>
+          <a href="#redes"><span>Redes<small>Síguenos</small></span></a>
+          <a href="https://mariabonitaec.com/"><span>Línea Femenina<small>María Bonita</small></span></a>
         </div>
       </nav>
       <div class="hero-caption">
@@ -63,7 +64,14 @@
     <div class="product-detail">
       <section class="gallery" aria-label="Fotos de la camisa">
         <div class="thumbnails" aria-label="Seleccionar fotografía"></div>
-        <div class="gallery-stage"><img id="detail-image" alt=""><div class="gallery-controls" hidden><button type="button" data-direction="-1" aria-label="Foto anterior">←</button><span id="photo-count" aria-live="polite"></span><button type="button" data-direction="1" aria-label="Foto siguiente">→</button></div></div>
+        <div class="gallery-stage" tabindex="0" role="group" aria-label="Galería: desliza para cambiar de foto o usa las flechas del teclado">
+          <img id="detail-image" alt="" draggable="false">
+          <div class="gallery-controls" hidden>
+            <button class="gallery-arrow gallery-arrow-prev" type="button" data-direction="-1" aria-label="Foto anterior"><span aria-hidden="true">‹</span></button>
+            <button class="gallery-arrow gallery-arrow-next" type="button" data-direction="1" aria-label="Foto siguiente"><span aria-hidden="true">›</span></button>
+          </div>
+          <span id="photo-count" class="sr-only" aria-live="polite" aria-atomic="true"></span>
+        </div>
       </section>
       <div class="product-info"><p class="detail-drop">DROP 001</p><h2 id="product-title"></h2><p class="detail-price" id="product-price"></p><fieldset class="sizes"><legend>TALLAS</legend><div class="size-options"></div></fieldset><a class="contact-button" id="availability-link" href="https://ig.me/m/bm___ec" target="_blank" rel="noopener noreferrer">Consulta disponibilidad</a></div>
     </div>

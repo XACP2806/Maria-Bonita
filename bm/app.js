@@ -11,6 +11,8 @@
   const detailImage = document.querySelector('#detail-image');
   const thumbnails = document.querySelector('.thumbnails');
   const galleryControls = document.querySelector('.gallery-controls');
+  const galleryStage = document.querySelector('.gallery-stage');
+  let swipeStart = null;
   let currentProduct;
   let currentPhoto = 0;
   let opener;
@@ -67,11 +69,12 @@
   function showPhoto(index) {
     currentPhoto = (index + currentProduct.images.length) % currentProduct.images.length;
     detailImage.src = currentProduct.images[currentPhoto];
-    detailImage.alt = `${currentProduct.name}, ${['vista frontal', 'vista posterior', 'con modelo'][currentPhoto] || `foto ${currentPhoto + 1}`}`;
+    detailImage.alt = `${currentProduct.name}, ${['vista frontal', 'con modelo', 'vista posterior'][currentPhoto] || `foto ${currentPhoto + 1}`}`;
     document.querySelector('#photo-count').textContent = `${currentPhoto + 1} / ${currentProduct.images.length}`;
     thumbnails.querySelectorAll('button').forEach((button, i) => button.setAttribute('aria-current', String(i === currentPhoto)));
   }
   function openProduct(product) {
+    swipeStart = null;
     currentProduct = product;
     document.querySelector('#product-title').textContent = product.name;
     document.querySelector('#product-price').textContent = `$${product.price}`;
@@ -108,6 +111,7 @@
     dialog.scrollTop = 0;
   }
   function hideProduct() {
+    swipeStart = null;
     if (!dialog.open) return;
     dialog.close();
     document.body.classList.remove('dialog-open');
@@ -134,6 +138,33 @@
   dialog.querySelector('.back-button').addEventListener('click', requestClose);
   dialog.addEventListener('cancel', event => { event.preventDefault(); requestClose(); });
   galleryControls.querySelectorAll('button').forEach(button => button.addEventListener('click', () => showPhoto(currentPhoto + Number(button.dataset.direction))));
+  galleryStage.addEventListener('keydown', event => {
+    if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+    event.preventDefault();
+    showPhoto(currentPhoto + (event.key === 'ArrowRight' ? 1 : -1));
+  });
+  // Preserve vertical page scrolling and pinch zoom; only horizontal swipes change photos.
+  galleryStage.addEventListener('pointerdown', event => {
+    if (!event.isPrimary) { swipeStart = null; return; }
+    if (event.button !== 0 || event.target.closest('button') || currentProduct.images.length < 2) return;
+    swipeStart = { id: event.pointerId, x: event.clientX, y: event.clientY };
+    galleryStage.setPointerCapture(event.pointerId);
+  });
+  galleryStage.addEventListener('pointermove', event => {
+    if (!swipeStart || event.pointerId !== swipeStart.id) return;
+    const dx = Math.abs(event.clientX - swipeStart.x);
+    const dy = Math.abs(event.clientY - swipeStart.y);
+    if (dy > 12 && dy > dx) swipeStart = null;
+  });
+  galleryStage.addEventListener('pointerup', event => {
+    if (!swipeStart || event.pointerId !== swipeStart.id) return;
+    const dx = event.clientX - swipeStart.x;
+    const dy = event.clientY - swipeStart.y;
+    swipeStart = null;
+    if (Math.abs(dx) >= 45 && Math.abs(dx) > Math.abs(dy) * 1.5) showPhoto(currentPhoto + (dx < 0 ? 1 : -1));
+  });
+  galleryStage.addEventListener('pointercancel', () => { swipeStart = null; });
+  galleryStage.addEventListener('lostpointercapture', () => { swipeStart = null; });
   window.addEventListener('popstate', syncProduct);
   window.addEventListener('hashchange', () => { if (!dialog.open || !location.hash.startsWith('#camisa-')) syncProduct(); });
   document.querySelectorAll('[data-social]').forEach(element => {
