@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>bM | Drop 001</title>
+  <meta name="description" content="Descubre Drop 001 de bM. Cuatro camisas, tallas S, M y L. Explora la colección.">
+  <link rel="canonical" href="https://mariabonitaec.com/bm/">
+  <meta property="og:title" content="bM | Drop 001">
+  <meta property="og:description" content="Descubre nuestra primera colección de camisas.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mariabonitaec.com/bm/">
+  <meta property="og:image" content="https://mariabonitaec.com/Imagenes/Imagenes_bM/PortadaPC.jpeg">
+  <link rel="stylesheet" href="styles.css">
+  <script src="catalogo.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body id="inicio">
+  <a class="skip-link" href="#drop-001">Ir a la colección</a>
+  <header class="hero" aria-label="bM, nueva colección">
+    <div class="hero-visual">
+      <picture class="cover">
+        <source media="(max-width: 767px) and (orientation: portrait)" srcset="../Imagenes/Imagenes_bM/Portadatelefono.jpeg">
+        <img src="../Imagenes/Imagenes_bM/PortadaPC.jpeg" alt="La primera colección de camisas bM, al aire libre" width="1280" height="960" fetchpriority="high">
+      </picture>
+      <div class="hero-shade"></div>
+      <div class="menu-backdrop" hidden></div>
+      <nav class="mobile-nav" aria-label="Navegación principal">
+        <a class="brand-box brand-box-small" href="#inicio" aria-label="bM, inicio"><span class="brand brand-small"><img src="assets/logo-original.png" alt="bM"></span></a>
+        <button class="menu-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu"><span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span></button>
+        <div class="mobile-menu" id="mobile-menu" hidden>
+          <p class="menu-heading">EXPLORA bM</p>
+          <a href="#drop-001"><span>Prendas<small>Descubre Drop 001</small></span><span class="menu-arrow" aria-hidden="true">↗</span></a>
+          <a href="#redes"><span>Redes<small>Síguenos</small></span><span class="menu-arrow" aria-hidden="true">↗</span></a>
+        </div>
+      </nav>
+      <div class="hero-caption">
+        <span class="availability"><img src="assets/disponible.svg" alt="" width="5" height="5">YA DISPONIBLE</span>
+        <h1 class="brand-box"><span class="brand brand-hero"><img src="assets/logo-original.png" alt="bM"></span></h1>
+        <a class="collection-link" href="#drop-001">VER COLECCIÓN →</a>
+      </div>
+    </div>
+  </header>
+  <main class="content">
+    <section class="collection" id="drop-001" aria-labelledby="collection-title" tabindex="-1">
+      <div class="collection-heading"><h2 id="collection-title">Drop 001</h2><span>4 CAMISAS</span></div>
+      <div class="product-grid">
+        <a class="product-card" href="#camisa-roja" data-product="roja" aria-haspopup="dialog"><img src="../Imagenes/Imagenes_bM/CamisaRoja.jpg" width="1122" height="1402" alt="Camisa roja de manga larga" loading="lazy"><h3>LA ROJA</h3><p>$44</p></a>
+        <a class="product-card" href="#camisa-verde" data-product="verde" aria-haspopup="dialog"><img src="../Imagenes/Imagenes_bM/CamisaVerde.jpg" width="1122" height="1402" alt="Camisa verde de manga larga" loading="lazy"><h3>LA VERDE</h3><p>$44</p></a>
+        <a class="product-card" href="#camisa-azul" data-product="azul" aria-haspopup="dialog"><img src="../Imagenes/Imagenes_bM/CamisaAzul.jpg" width="1122" height="1402" alt="Camisa azul de manga larga" loading="lazy"><h3>LA AZUL</h3><p>$44</p></a>
+        <a class="product-card" href="#camisa-blanca" data-product="blanca" aria-haspopup="dialog"><img src="../Imagenes/Imagenes_bM/CamisaBlanca.png" width="1122" height="1402" alt="Camisa blanca de manga larga" loading="lazy"><h3>LA BLANCA</h3><p>$44</p></a>
+      </div>
+      <noscript><p>Activa JavaScript para consultar las fotos y tallas de cada camisa.</p></noscript>
+    </section>
+    <footer id="redes" class="footer" tabindex="-1">
+      <div class="socials"><h2>SÍGUENOS</h2><a data-social="instagram" href="https://www.instagram.com/bm___ec/?utm_source=ig_web_button_share_sheet" target="_blank" rel="noopener noreferrer">Instagram</a><span data-social="tiktok" hidden>TikTok</span></div>
+      <div class="footer-signature"><a href="#inicio" aria-label="bM, volver al inicio"><span class="brand brand-footer"><img src="assets/logo-original.png" alt="bM"></span></a><span>© bM</span></div>
+    </footer>
+  </main>
+  <dialog class="product-dialog" aria-labelledby="product-title">
+    <div class="detail-header"><button class="back-button" type="button" autofocus>← Volver a la colección</button><span class="brand brand-small"><img src="assets/logo-original.png" alt="bM"></span><button class="close-button" type="button" aria-label="Cerrar ficha">×</button></div>
+    <div class="product-detail">
+      <section class="gallery" aria-label="Fotos de la camisa">
+        <div class="thumbnails" aria-label="Seleccionar fotografía"></div>
+        <div class="gallery-stage"><img id="detail-image" alt=""><div class="gallery-controls" hidden><button type="button" data-direction="-1" aria-label="Foto anterior">←</button><span id="photo-count" aria-live="polite"></span><button type="button" data-direction="1" aria-label="Foto siguiente">→</button></div></div>
+      </section>
+      <div class="product-info"><p class="detail-drop">DROP 001</p><h2 id="product-title"></h2><p class="detail-price" id="product-price"></p><fieldset class="sizes"><legend>TALLAS</legend><div class="size-options"></div></fieldset><a class="contact-button" id="availability-link" href="https://ig.me/m/bm___ec" target="_blank" rel="noopener noreferrer">Consulta disponibilidad</a></div>
+    </div>
+  </dialog>
+</body>
+</html>
