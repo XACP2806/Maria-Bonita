@@ -66,10 +66,16 @@
   window.addEventListener('resize', updateHero);
   updateHero();
 
+  function photoDescription(src) {
+    if (src.includes('GuiaTallas')) return 'Guía de tallas en centímetros: S, M y L';
+    if (src.includes('Atras')) return 'vista posterior';
+    if (src.includes('Modelo')) return 'con modelo';
+    return 'vista frontal';
+  }
   function showPhoto(index) {
     currentPhoto = (index + currentProduct.images.length) % currentProduct.images.length;
     detailImage.src = currentProduct.images[currentPhoto];
-    detailImage.alt = `${currentProduct.name}, ${['vista frontal', 'con modelo', 'vista posterior'][currentPhoto] || `foto ${currentPhoto + 1}`}`;
+    detailImage.alt = `${currentProduct.name}, ${photoDescription(currentProduct.images[currentPhoto])}`;
     document.querySelector('#photo-count').textContent = `${currentPhoto + 1} / ${currentProduct.images.length}`;
     thumbnails.querySelectorAll('button').forEach((button, i) => button.setAttribute('aria-current', String(i === currentPhoto)));
   }
@@ -92,7 +98,8 @@
     product.images.forEach((src, i) => {
       const button = document.createElement('button');
       button.type = 'button'; button.className = 'thumbnail';
-      button.setAttribute('aria-label', `Ver foto ${i + 1} de ${product.name}`);
+      button.setAttribute('aria-label', `Ver ${photoDescription(src)} de ${product.name}`);
+      if (src.includes('GuiaTallas')) button.classList.add('thumbnail-guide');
       const img = document.createElement('img'); img.src = src; img.alt = '';
       button.append(img); button.addEventListener('click', () => showPhoto(i));
       thumbnails.append(button);

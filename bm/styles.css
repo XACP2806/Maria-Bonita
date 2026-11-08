@@ -13,3 +13,4 @@
 @media(prefers-reduced-motion:reduce){:root{scroll-behavior:auto}.product-card>img,.menu-toggle,.menu-icon>span,.mobile-menu a{transition:none}.mobile-menu,.menu-backdrop{animation:none}}
 
 @media (max-width:767px) and (orientation:portrait), (hover:none) and (pointer:coarse){.gallery-controls{display:none}}
+.thumbnail-guide img{object-fit:contain;background:#fff}
