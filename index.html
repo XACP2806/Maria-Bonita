@@ -220,11 +220,18 @@
        =================================================== */
     .hero-container {
       width: 100%;
-      height: 450px;
+      height: min(50vw, 650px);
+      min-height: 450px;
       overflow: hidden;
       margin-bottom: 40px;
       background-color: #f4ece7;
       position: relative;
+    }
+
+    .hero-container picture {
+      display: block;
+      width: 100%;
+      height: 100%;
     }
 
     .hero-img {
@@ -827,12 +834,14 @@
 
     @media (max-width: 768px) {
       .hero-container {
-        height: clamp(260px, 72vw, 340px);
+        height: auto;
+        min-height: 0;
+        aspect-ratio: 4 / 5;
         margin-bottom: 30px;
       }
 
       .hero-img {
-        object-position: left center;
+        object-position: center;
       }
 
       .logo {
@@ -988,7 +997,10 @@
     
     <!-- BANNER PRINCIPAL DE LA NUEVA COLECCIÓN -->
     <div class="hero-container">
-      <img src="Imagenes/banner.png" alt="Nueva colección de María Bonita" id="hero-banner" class="hero-img" fetchpriority="high">
+      <picture>
+        <source media="(max-width: 768px)" srcset="Imagenes/banner-new-collection-mobile.png">
+        <img src="Imagenes/banner-new-collection-desktop.png" alt="New Collection de María Bonita" id="hero-banner" class="hero-img" fetchpriority="high">
+      </picture>
     </div>
 
     <div class="container">
@@ -1304,7 +1316,7 @@
         precio: 88.00,
         imagen: "Imagenes/Mía dress.png",
         esNewArrival: true,
-        ordenNew: 12,
+        ordenNew: 14,
         descripcion: "",
         reel: "https://www.instagram.com/reel/DbJgmPaRbrX",
         colores: []
@@ -1456,7 +1468,7 @@
         precio: 96.00,
         imagen: "Imagenes/Antonieta dress verde.png",
         esNewArrival: true,
-        ordenNew: 14,
+        ordenNew: 16,
         etiquetaNew: "New Colors",
         descripcion: "Vestido precioso de dos piezas con corte asimétrico de un hombro, manga larga y falda forrada de corte asimétrico con dos vuelos que le dan cuerpo y movimiento.\n\nIdeal para matrimonios de día o tarde-noche, fiestas y eventos.",
         reel: "https://www.instagram.com/reel/DQptmQlDoqY",
@@ -1546,7 +1558,7 @@
         precio: 54.00,
         imagen: "Imagenes/Top Camila.png",
         esNewArrival: true,
-        ordenNew: 8,
+        ordenNew: 11,
         descripcion: "",
         reel: "https://www.instagram.com/reel/DbCJ6ieuKJM",
         colores: []
@@ -1558,7 +1570,7 @@
         precio: 88.00,
         imagen: "Imagenes/Olivia dress (sin manga) gris.png",
         esNewArrival: true,
-        ordenNew: 11,
+        ordenNew: 13,
         descripcion: "",
         reel: "https://www.instagram.com/reel/DbJgmPaRbrX",
         colores: [
@@ -1574,7 +1586,7 @@
         precio: 88.00,
         imagen: "Imagenes/Domenica dress rosado.png",
         esNewArrival: true,
-        ordenNew: 9,
+        ordenNew: 12,
         descripcion: "",
         reel: "https://www.instagram.com/reel/DbJgmPaRbrX",
         colores: [
@@ -1590,7 +1602,7 @@
         precio: 88.00,
         imagen: "Imagenes/Olivia dress (con manga) verde.png",
         esNewArrival: true,
-        ordenNew: 6,
+        ordenNew: 10,
         descripcion: "",
         reel: "https://www.instagram.com/reel/DbWulmXuvMZ",
         colores: [
@@ -1606,7 +1618,7 @@
         precio: 88.00,
         imagen: "Imagenes/Anastasia dress lila.png",
         esNewArrival: true,
-        ordenNew: 13,
+        ordenNew: 15,
         descripcion: "",
         reel: "https://www.instagram.com/reel/DbJgmPaRbrX",
         colores: [
@@ -1651,7 +1663,7 @@
         precio: 48.00,
         imagen: "Imagenes/Blusa Stella flecos blanco.png?v=20260917-2",
         esNewArrival: true,
-        ordenNew: 2,
+        ordenNew: 7,
         descripcion: "",
         reel: "https://www.instagram.com/reel/DdKLfhBxAwn",
         colores: [
@@ -1667,7 +1679,7 @@
         precio: 88.00,
         imagen: "Imagenes/Stella Set sin flecos.png",
         esNewArrival: true,
-        ordenNew: 5,
+        ordenNew: 9,
         descripcion: "",
         reel: "https://www.instagram.com/reel/DdFVsM-ufj3",
         colores: []
@@ -1679,7 +1691,7 @@
         precio: 96.00,
         imagen: "Imagenes/Paula dress.png",
         esNewArrival: true,
-        ordenNew: 3,
+        ordenNew: 8,
         descripcion: "",
         reel: "https://www.instagram.com/reel/DdPr21QObdc",
         colores: []
@@ -1726,7 +1738,8 @@
         categoria: "vestidos",
         precio: 88.00,
         imagen: "Imagenes/Ana dress.png",
-        esNewArrival: false,
+        esNewArrival: true,
+        ordenNew: 5,
         descripcion: "",
         reel: "https://www.instagram.com/reel/DRvKqqvjp7j",
         colores: []
@@ -1748,7 +1761,8 @@
         categoria: "vestidos",
         precio: 78.00,
         imagen: "Imagenes/Leonor jumpsuit.png",
-        esNewArrival: false,
+        esNewArrival: true,
+        ordenNew: 6,
         descripcion: "",
         reel: "https://www.instagram.com/reel/C9I0VXuxbtn",
         colores: []
@@ -1809,7 +1823,7 @@
         precio: 88.00,
         imagen: "Imagenes/Fabiana set.png",
         esNewArrival: true,
-        ordenNew: 4,
+        ordenNew: 2,
         descripcion: "",
         reel: "https://www.instagram.com/reel/C0mzllBROA6",
         colores: []
@@ -1821,7 +1835,7 @@
         precio: 88.00,
         imagen: "Imagenes/Lilian set.png",
         esNewArrival: true,
-        ordenNew: 7,
+        ordenNew: 3,
         descripcion: "",
         reel: "https://www.instagram.com/reel/C0mzllBROA6",
         colores: []
@@ -1833,7 +1847,7 @@
         precio: 96.00,
         imagen: "Imagenes/Ambar set.png",
         esNewArrival: true,
-        ordenNew: 10,
+        ordenNew: 4,
         descripcion: "",
         reel: "https://www.instagram.com/reel/C0mzllBROA6",
         colores: []
